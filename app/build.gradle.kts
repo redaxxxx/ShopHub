@@ -4,18 +4,19 @@ plugins {
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
     kotlin("kapt")
 
 }
 
 android {
     namespace = "com.android.developer.prof.reda.shophub"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.android.developer.prof.reda.shophub"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -38,6 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -53,14 +57,14 @@ dependencies {
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")
-
+    implementation ("com.google.firebase:firebase-auth:22.3.1")
 
     //Navigation component
     implementation ("androidx.navigation:navigation-fragment-ktx:2.5.2")
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.2")
 
     //loading button
-    implementation ("br.com.simplepass:loading-button-android:2.2.0")
+//    implementation ("br.com.simplepass:loading-button-android:2.2.0")
 
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.13.0")
@@ -69,21 +73,24 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
     //viewpager2 indicatior
-    implementation ("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
+//    implementation ("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
 
     //stepView
-    implementation ("com.shuhart.stepview:stepview:1.5.1")
+//    implementation ("com.shuhart.stepview:stepview:1.5.1")
 
     //Android Ktx
     implementation ("androidx.navigation:navigation-fragment-ktx:2.4.2")
 
     //Dagger hilt
-    implementation ("com.google.dagger:hilt-android:2.38.1")
-    kapt ("com.google.dagger:hilt-compiler:2.38.1")
+    implementation ("com.google.dagger:hilt-android:2.50")
+    kapt ("com.google.dagger:hilt-compiler:2.50")
 
     //Firebase
     implementation ("com.google.firebase:firebase-auth:21.0.6")
 
     //Coroutines with firebase
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1")
+}
+kapt{
+    correctErrorTypes = true
 }

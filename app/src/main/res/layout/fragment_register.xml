@@ -49,7 +49,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/tvDoNotHaveAccount"
+                android:id="@+id/tvDoHaveAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/h2"
@@ -60,12 +60,24 @@
                 android:text="@string/do_you_have_an_account_login"
                 android:layout_marginTop="8dp" />
 
+            <TextView
+                android:id="@+id/loginOption_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="login"
+                app:layout_constraintTop_toTopOf="@id/tvDoHaveAccount"
+                app:layout_constraintStart_toEndOf="@id/tvDoHaveAccount"
+                style="@style/h2"
+                android:layout_marginStart="4dp"
+                android:gravity="center"
+                android:textColor="@color/g_blue"/>
+
             <EditText
                 android:id="@+id/etFirstNameRegister"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edittextHeight"
                 style="@style/editText"
-                app:layout_constraintTop_toBottomOf="@id/tvDoNotHaveAccount"
+                app:layout_constraintTop_toBottomOf="@id/tvDoHaveAccount"
                 app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
                 app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
                 android:hint="First Name"

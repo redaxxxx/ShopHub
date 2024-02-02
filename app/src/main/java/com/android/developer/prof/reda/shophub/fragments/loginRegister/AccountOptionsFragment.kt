@@ -5,23 +5,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import com.android.developer.prof.reda.shophub.databinding.FragmentAccountOptionsBinding
 
 class AccountOptionsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-
+    private lateinit var binding: FragmentAccountOptionsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_options, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_account_options,
+            container,
+            false
+        )
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.apply {
+            loginAccountOptionsBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_accountOptionsFragment_to_loginFragment)
+            }
+
+            registerAccountOptionsBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_accountOptionsFragment_to_registerFragment)
+            }
+        }
     }
 
 }

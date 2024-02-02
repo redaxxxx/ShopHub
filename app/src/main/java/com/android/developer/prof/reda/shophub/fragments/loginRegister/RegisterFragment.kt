@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.data.User
 import com.android.developer.prof.reda.shophub.databinding.FragmentRegisterBinding
@@ -55,6 +56,10 @@ class RegisterFragment : Fragment() {
 
                 viewModel.createAccountWithEmailAndPassword(user, password)
             }
+
+            loginOptionTv.setOnClickListener {
+                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            }
         }
 
         lifecycleScope.launch {
@@ -68,10 +73,6 @@ class RegisterFragment : Fragment() {
                     }
                     is Resource.Error ->{
                         Log.d(TAG, it.message.toString())
-                    }
-
-                    else -> {
-                        Log.d(TAG, "Error")
                     }
                 }
             }

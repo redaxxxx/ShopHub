@@ -6,9 +6,9 @@
     <string name="rightAddress">The Right Address\nFor Shopping\nAnyday</string>
     <string name="quality">It is now very easy to reach the\nbest quality among the\nproducts on the internet!</string>
     <string name="let_s_login_text">Let\'s Login</string>
-    <string name="don_t_have_an_account_register_text">Don\'t have an account? Register</string>
+    <string name="don_t_have_an_account_register_text">Don\'t have an account?</string>
     <string name="facebook_text">Facebook</string>
     <string name="let_s_register_text">Let\'s Register</string>
-    <string name="do_you_have_an_account_login">Do you have an account? login</string>
+    <string name="do_you_have_an_account_login">Do you have an account?</string>
 
 </resources>

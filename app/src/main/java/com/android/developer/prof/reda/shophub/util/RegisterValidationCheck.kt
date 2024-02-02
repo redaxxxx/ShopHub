@@ -2,7 +2,7 @@ package com.android.developer.prof.reda.shophub.util
 
 import android.util.Patterns
 
-fun validateEmail(email: String): RegisterValidation{
+fun validateRegisterEmail(email: String): RegisterValidation{
     if (email.isEmpty()){
         return RegisterValidation.Failed("Email cannot be empty")
     }
@@ -13,7 +13,7 @@ fun validateEmail(email: String): RegisterValidation{
     return RegisterValidation.Success
 }
 
-fun validatePassword(password: String): RegisterValidation{
+fun validateRegisterPassword(password: String): RegisterValidation{
     if (password.isEmpty()){
         return RegisterValidation.Failed("Password cannot be empty")
     }

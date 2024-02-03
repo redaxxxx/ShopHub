@@ -10,5 +10,10 @@
     <string name="facebook_text">Facebook</string>
     <string name="let_s_register_text">Let\'s Register</string>
     <string name="do_you_have_an_account_login">Do you have an account?</string>
+    <string name="email_text">Email</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="send_text">Send</string>
+    <string name="reset_password_text">Reset Password</string>
+    <string name="reset_password_message_text">we will send you the password reset link to your email</string>
 
 </resources>

@@ -2,23 +2,15 @@ package com.android.developer.prof.reda.shophub.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.developer.prof.reda.shophub.data.User
 import com.android.developer.prof.reda.shophub.util.LoginFailedState
 import com.android.developer.prof.reda.shophub.util.LoginValidation
-import com.android.developer.prof.reda.shophub.util.RegisterFailedState
-import com.android.developer.prof.reda.shophub.util.RegisterValidation
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.util.validateLoginEmail
 import com.android.developer.prof.reda.shophub.util.validateLoginPassword
-import com.android.developer.prof.reda.shophub.util.validateRegisterEmail
-import com.android.developer.prof.reda.shophub.util.validateRegisterPassword
-import com.android.developer.prof.reda.shophub.util.validationFirstName
-import com.android.developer.prof.reda.shophub.util.validationLastName
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -34,6 +26,10 @@ class LoginViewModel @Inject constructor(
     private val _login = MutableSharedFlow<Resource<FirebaseUser>>()
     val login: SharedFlow<Resource<FirebaseUser>>
         get() = _login
+
+    private val _resetPassword = MutableSharedFlow<Resource<String>>()
+    val resetPassword: SharedFlow<Resource<String>>
+        get() = _resetPassword
 
     private val _validation = Channel<LoginFailedState>()
     val validation = _validation.receiveAsFlow()
@@ -66,6 +62,22 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun resetPassword(email: String){
+        runBlocking {
+            _resetPassword.emit(Resource.Loading())
+        }
+        firebaseAuth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                viewModelScope.launch {
+                    _resetPassword.emit(Resource.Success(email))
+                }
+            }.addOnFailureListener {
+                viewModelScope.launch {
+                    _resetPassword.emit(Resource.Error(it.message.toString()))
+                }
+            }
+
+    }
     private fun checkValidation(
         email: String,
         password: String

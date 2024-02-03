@@ -15,13 +15,13 @@ import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.activities.ShoppingActivity
 import com.android.developer.prof.reda.shophub.databinding.FragmentLoginBinding
+import com.android.developer.prof.reda.shophub.dialog.setupBottomSheetDialog
 import com.android.developer.prof.reda.shophub.util.LoginValidation
-import com.android.developer.prof.reda.shophub.util.RegisterValidation
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.viewmodel.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_login,
@@ -56,10 +56,35 @@ class LoginFragment : Fragment() {
             loginOptionTv.setOnClickListener {
                 findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
+
+            tvForgotPassword.setOnClickListener {
+                setupBottomSheetDialog {email->
+                    viewModel.resetPassword(email)
+                }
+            }
         }
 
         lifecycleScope.launch {
-            viewModel.login.collect{ it ->
+            viewModel.resetPassword.collect{
+                when(it){
+                    is Resource.Loading->{
+                        Log.d(TAG, "It Reset")
+                    }
+                    is Resource.Success->{
+                        Snackbar.make(requireView(), "Reset Link was sent to your email", Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+                    is Resource.Error->{
+                        Snackbar.make(requireView(), "Error: ${it.message}", Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.login.collect{
                 when(it){
                     is Resource.Loading-> {
                         Log.d(TAG, "It Login")

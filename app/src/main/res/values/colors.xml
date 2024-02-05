@@ -19,5 +19,8 @@
     <color name="g_orange_yellow">#F8BA00</color>
     <color name="g_green">#11FF00</color>
     <color name="g_icon_tint">#97AABD</color>
+    <color name="g_pink">#FF9999</color>
+    <color name="g_hint">#666666</color>
+
 
 </resources>

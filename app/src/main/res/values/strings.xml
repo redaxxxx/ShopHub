@@ -15,5 +15,6 @@
     <string name="send_text">Send</string>
     <string name="reset_password_text">Reset Password</string>
     <string name="reset_password_message_text">we will send you the password reset link to your email</string>
+    <string name="add_to_cart_text">Add to cart</string>
 
 </resources>

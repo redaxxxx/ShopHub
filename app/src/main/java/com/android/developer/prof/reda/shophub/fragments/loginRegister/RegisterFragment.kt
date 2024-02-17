@@ -74,6 +74,8 @@ class RegisterFragment : Fragment() {
                     is Resource.Error ->{
                         Log.d(TAG, it.message.toString())
                     }
+
+                    else -> Unit
                 }
             }
         }

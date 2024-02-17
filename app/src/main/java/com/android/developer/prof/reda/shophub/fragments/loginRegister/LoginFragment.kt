@@ -79,6 +79,7 @@ class LoginFragment : Fragment() {
                             .show()
                     }
 
+                    else -> Unit
                 }
             }
         }
@@ -101,6 +102,8 @@ class LoginFragment : Fragment() {
                         Log.d(TAG, it.message.toString())
                         Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
                     }
+
+                    else -> Unit
                 }
             }
         }

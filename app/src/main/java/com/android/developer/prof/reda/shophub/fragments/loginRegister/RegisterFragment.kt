@@ -69,6 +69,7 @@ class RegisterFragment : Fragment() {
                         Log.d(TAG, "It Register")
                     }
                     is Resource.Success ->{
+                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                         Log.d(TAG, it.message.toString())
                     }
                     is Resource.Error ->{
@@ -117,4 +118,6 @@ class RegisterFragment : Fragment() {
             }
         }
     }
+
+
 }

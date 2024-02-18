@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.android.developer.prof.reda.shophub.R
+import com.android.developer.prof.reda.shophub.adapters.BestDealsAdapter
+import com.android.developer.prof.reda.shophub.adapters.BestProductAdapter
 import com.android.developer.prof.reda.shophub.adapters.SpecialProductAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentMainCategoryBinding
 import com.android.developer.prof.reda.shophub.util.Resource
@@ -25,6 +27,8 @@ class MainCategoryFragment : Fragment() {
     private lateinit var binding: FragmentMainCategoryBinding
     private val viewModel by viewModels<MainCategoryViewModel>()
     private lateinit var specialProductAdapter: SpecialProductAdapter
+    private lateinit var bestDealsAdapter: BestDealsAdapter
+    private lateinit var bestProductAdapter: BestProductAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +47,12 @@ class MainCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         specialProductAdapter = SpecialProductAdapter()
+        bestDealsAdapter = BestDealsAdapter()
+        bestProductAdapter = BestProductAdapter()
+
         binding.rvSpecialProduct.adapter = specialProductAdapter
+        binding.rvBestDeals.adapter = bestDealsAdapter
+        binding.rvBestProduct.adapter = bestProductAdapter
 
         lifecycleScope.launch {
             viewModel.specialProducts.collectLatest {
@@ -51,6 +60,40 @@ class MainCategoryFragment : Fragment() {
                     is Resource.Loading -> showLoading()
                     is Resource.Success -> {
                         specialProductAdapter.submitList(it.data)
+                        hideLoading()
+                    }
+                    is Resource.Error -> {
+                        hideLoading()
+                        Log.d(TAG, it.message.toString())
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.bestDeals.collectLatest {
+                when(it){
+                    is Resource.Loading -> showLoading()
+                    is Resource.Success -> {
+                        bestDealsAdapter.submitList(it.data)
+                        hideLoading()
+                    }
+                    is Resource.Error -> {
+                        hideLoading()
+                        Log.d(TAG, it.message.toString())
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.bestProduct.collectLatest {
+                when(it){
+                    is Resource.Loading -> showLoading()
+                    is Resource.Success -> {
+                        bestProductAdapter.submitList(it.data)
                         hideLoading()
                     }
                     is Resource.Error -> {

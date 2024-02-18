@@ -11,9 +11,11 @@ import com.android.developer.prof.reda.shophub.adapters.HomeViewPagerAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentHomeBinding
 import com.android.developer.prof.reda.shophub.fragments.category.AccessoryFragment
 import com.android.developer.prof.reda.shophub.fragments.category.ChairFragment
+import com.android.developer.prof.reda.shophub.fragments.category.ClothesFragment
 import com.android.developer.prof.reda.shophub.fragments.category.CupboardFragment
 import com.android.developer.prof.reda.shophub.fragments.category.FurnitureFragment
 import com.android.developer.prof.reda.shophub.fragments.category.MainCategoryFragment
+import com.android.developer.prof.reda.shophub.fragments.category.ShoesFragment
 import com.android.developer.prof.reda.shophub.fragments.category.TableFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -41,8 +43,12 @@ class HomeFragment : Fragment() {
             CupboardFragment(),
             TableFragment(),
             AccessoryFragment(),
-            FurnitureFragment()
+            FurnitureFragment(),
+            ClothesFragment(),
+            ShoesFragment()
         )
+
+        binding.viewPagerHome.isUserInputEnabled = false
 
         val viewPagerAdapter = HomeViewPagerAdapter(categoriesFragments, childFragmentManager, lifecycle)
         binding.viewPagerHome.adapter = viewPagerAdapter
@@ -55,6 +61,8 @@ class HomeFragment : Fragment() {
                 3-> tab.text = "Table"
                 4-> tab.text = "Accessory"
                 5-> tab.text = "Furniture"
+                6-> tab.text = "Clothes"
+                7-> tab.text = "Shoes"
             }
         }.attach()
     }

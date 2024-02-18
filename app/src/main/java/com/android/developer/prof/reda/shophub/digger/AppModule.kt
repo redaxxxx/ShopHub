@@ -2,7 +2,7 @@ package com.android.developer.prof.reda.shophub.digger
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
-import com.android.developer.prof.reda.shophub.util.Constants.INTRODUCTION_SP
+import com.android.developer.prof.reda.shophub.util.INTRODUCTION_SP
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthProvider

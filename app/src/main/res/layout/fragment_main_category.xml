@@ -12,6 +12,7 @@
         tools:context=".fragments.category.MainCategoryFragment">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollViewMainCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -21,7 +22,7 @@
                 android:layout_height="match_parent">
 
                 <ProgressBar
-                    android:id="@+id/progress_bar"
+                    android:id="@+id/mainCategoryProgressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:indeterminateTint="@color/g_gray700"
@@ -97,8 +98,22 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_best_product"
                     app:layout_constraintTop_toBottomOf="@id/tv_best_product" />
+
+                <ProgressBar
+                    android:id="@+id/bestProductProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:progressDrawable="@drawable/progress_drawable"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

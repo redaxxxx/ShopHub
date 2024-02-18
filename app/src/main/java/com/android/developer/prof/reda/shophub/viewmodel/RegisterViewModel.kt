@@ -3,10 +3,10 @@ package com.android.developer.prof.reda.shophub.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.android.developer.prof.reda.shophub.data.User
-import com.android.developer.prof.reda.shophub.util.Constants.USER_COLLECTION
 import com.android.developer.prof.reda.shophub.util.RegisterFailedState
 import com.android.developer.prof.reda.shophub.util.RegisterValidation
 import com.android.developer.prof.reda.shophub.util.Resource
+import com.android.developer.prof.reda.shophub.util.USER_COLLECTION
 import com.android.developer.prof.reda.shophub.util.validateRegisterEmail
 import com.android.developer.prof.reda.shophub.util.validateRegisterPassword
 import com.android.developer.prof.reda.shophub.util.validationFirstName

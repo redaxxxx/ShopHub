@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.BestDealsAdapter
 import com.android.developer.prof.reda.shophub.adapters.BestProductAdapter
 import com.android.developer.prof.reda.shophub.adapters.SpecialProductAdapter
+import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.FragmentMainCategoryBinding
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.viewmodel.MainCategoryViewModel
@@ -91,13 +93,21 @@ class MainCategoryFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.bestProduct.collectLatest {
                 when(it){
-                    is Resource.Loading -> showLoading()
+                    is Resource.Loading -> {
+                        binding.bestProductProgressBar.visibility = View.VISIBLE
+                    }
                     is Resource.Success -> {
                         bestProductAdapter.submitList(it.data)
-                        hideLoading()
+
+                        binding.nestedScrollViewMainCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                            if (v.getChildAt(0).bottom <= v.height + scrollY){
+                                bestProductAdapter.submitList(it.data)
+                                binding.bestProductProgressBar.visibility = View.GONE
+                            }
+                        })
                     }
                     is Resource.Error -> {
-                        hideLoading()
+                        binding.bestProductProgressBar.visibility = View.GONE
                         Log.d(TAG, it.message.toString())
                     }
                     else -> Unit
@@ -105,12 +115,14 @@ class MainCategoryFragment : Fragment() {
             }
         }
 
+
     }
 
     private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.mainCategoryProgressBar.visibility = View.VISIBLE
     }
     private fun hideLoading(){
-        binding.progressBar.visibility = View.GONE
+        binding.mainCategoryProgressBar.visibility = View.GONE
     }
+
 }

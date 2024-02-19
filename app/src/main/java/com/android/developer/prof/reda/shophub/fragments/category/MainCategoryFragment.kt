@@ -99,7 +99,7 @@ class MainCategoryFragment : Fragment() {
                     is Resource.Success -> {
                         bestProductAdapter.submitList(it.data)
 
-                        binding.nestedScrollViewMainCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                        binding.nestedScrollViewMainCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
                             if (v.getChildAt(0).bottom <= v.height + scrollY){
                                 bestProductAdapter.submitList(it.data)
                                 binding.bestProductProgressBar.visibility = View.GONE

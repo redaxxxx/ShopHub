@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView.OnScrollListener
+import androidx.core.widget.NestedScrollView
+import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.BestProductAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentBaseCategoryBinding
@@ -28,8 +32,24 @@ open class BaseCategoryFragment : Fragment() {
             false
         )
 
+        binding.rvOffer.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1) && dx != 0){
+                    onOfferPagingRequest()
+                }
+            }
+        })
+
+        binding.nestedScrollBaseCategory.setOnScrollChangeListener(OnScrollChangeListener { v,_,scrollY,_,_ ->
+            if (v.getChildAt(0).bottom <= v.height + scrollY){
+                onBestProductsPagingRequest()
+            }
+        })
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +58,26 @@ open class BaseCategoryFragment : Fragment() {
         binding.rvBestProductsBaseCategory.adapter = productAdapter
 
 
+    }
+    fun onBestProductsPagingRequest() {
+
+    }
+
+    fun onOfferPagingRequest() {
+
+    }
+
+    fun showOfferProductLoading(){
+        binding.offerProductsProgressBar.visibility = View.VISIBLE
+    }
+    fun hideOfferProductLoading(){
+        binding.offerProductsProgressBar.visibility = View.GONE
+    }
+    fun showBestProductLoading(){
+        binding.bestProductsProgressBar.visibility = View.VISIBLE
+    }
+    fun hideBestProductLoading(){
+        binding.bestProductsProgressBar.visibility = View.GONE
     }
 
 }

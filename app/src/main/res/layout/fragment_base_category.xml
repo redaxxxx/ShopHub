@@ -8,6 +8,7 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollBaseCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -16,6 +17,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/offerProductsProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/g_blue_gray200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/rvOffer"
+                app:layout_constraintBottom_toBottomOf="@id/rvOffer"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvOffer"
@@ -58,6 +69,16 @@
                 tools:listitem="@layout/product_item"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
+            <ProgressBar
+                android:id="@+id/bestProductsProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/g_blue_gray200"
+                app:layout_constraintTop_toBottomOf="@id/rvBestProductsBaseCategory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

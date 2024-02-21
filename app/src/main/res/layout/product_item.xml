@@ -19,13 +19,13 @@
 
             <ImageView
                 android:id="@+id/img_product"
-                android:layout_width="116dp"
-                android:layout_height="108dp"
+                android:layout_width="125dp"
+                android:layout_height="114dp"
                 android:src="@drawable/test_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:id="@+id/linear_product_name"

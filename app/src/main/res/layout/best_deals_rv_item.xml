@@ -7,7 +7,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="320dp"
+        android:layout_width="305dp"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="5dp"
@@ -26,7 +26,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:id="@+id/tv_deal_product_name"

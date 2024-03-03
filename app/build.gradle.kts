@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
+    id ("androidx.navigation.safeargs")
 
 }
 

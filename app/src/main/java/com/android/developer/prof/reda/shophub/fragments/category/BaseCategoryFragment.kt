@@ -9,16 +9,19 @@ import android.widget.AbsListView.OnScrollListener
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.BestProductAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentBaseCategoryBinding
+import com.android.developer.prof.reda.shophub.fragments.home.HomeFragmentDirections
+import com.android.developer.prof.reda.shophub.util.showBottomNavigationView
 
 open class BaseCategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentBaseCategoryBinding
-    protected val productAdapter: BestProductAdapter by lazy { BestProductAdapter() }
-    protected val offerAdapter: BestProductAdapter by lazy { BestProductAdapter() }
+    protected lateinit var productAdapter: BestProductAdapter
+    protected lateinit var offerAdapter: BestProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +57,14 @@ open class BaseCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        productAdapter = BestProductAdapter(BestProductAdapter.OnItemCLickListener{
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment2(it))
+        })
+
+        offerAdapter = BestProductAdapter(BestProductAdapter.OnItemCLickListener{
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment2(it))
+        })
+
         binding.rvOffer.adapter = offerAdapter
         binding.rvBestProductsBaseCategory.adapter = productAdapter
 
@@ -80,4 +91,8 @@ open class BaseCategoryFragment : Fragment() {
         binding.bestProductsProgressBar.visibility = View.GONE
     }
 
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
+    }
 }

@@ -6,17 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout.Spec
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.BestDealsAdapter
 import com.android.developer.prof.reda.shophub.adapters.BestProductAdapter
 import com.android.developer.prof.reda.shophub.adapters.SpecialProductAdapter
 import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.FragmentMainCategoryBinding
+import com.android.developer.prof.reda.shophub.fragments.home.HomeFragmentDirections
 import com.android.developer.prof.reda.shophub.util.Resource
+import com.android.developer.prof.reda.shophub.util.showBottomNavigationView
 import com.android.developer.prof.reda.shophub.viewmodel.MainCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,9 +52,20 @@ class MainCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        specialProductAdapter = SpecialProductAdapter()
-        bestDealsAdapter = BestDealsAdapter()
-        bestProductAdapter = BestProductAdapter()
+        specialProductAdapter = SpecialProductAdapter(
+            SpecialProductAdapter.OnItemClickListener{
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment2(it))
+
+            }
+        )
+        bestDealsAdapter = BestDealsAdapter(
+            BestDealsAdapter.OnItemClickListener{
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment2(it))
+            }
+        )
+        bestProductAdapter = BestProductAdapter( BestProductAdapter.OnItemCLickListener{
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment2(it))
+        })
 
         binding.rvSpecialProduct.adapter = specialProductAdapter
         binding.rvBestDeals.adapter = bestDealsAdapter
@@ -123,6 +138,11 @@ class MainCategoryFragment : Fragment() {
     }
     private fun hideLoading(){
         binding.mainCategoryProgressBar.visibility = View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
     }
 
 }

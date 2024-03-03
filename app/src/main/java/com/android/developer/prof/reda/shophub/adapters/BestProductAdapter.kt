@@ -9,7 +9,7 @@ import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.ProductItemBinding
 import com.bumptech.glide.Glide
 
-class BestProductAdapter: ListAdapter<Product, BestProductAdapter.BestProductViewHolder>(DiffCallback) {
+class BestProductAdapter(val onclickListener: OnItemCLickListener): ListAdapter<Product, BestProductAdapter.BestProductViewHolder>(DiffCallback) {
     inner class BestProductViewHolder(private val binding: ProductItemBinding): ViewHolder(binding.root) {
         fun bind(product: Product){
             binding.apply {
@@ -49,8 +49,14 @@ class BestProductAdapter: ListAdapter<Product, BestProductAdapter.BestProductVie
 
     override fun onBindViewHolder(holder: BestProductViewHolder, position: Int) {
         val product = getItem(position)
+        holder.itemView.setOnClickListener{
+            onclickListener.onClick(product)
+        }
         holder.bind(product)
     }
 
+    class OnItemCLickListener(val clickListener: (product: Product) -> Unit){
+        fun onClick(product: Product) = clickListener(product)
+    }
 
 }

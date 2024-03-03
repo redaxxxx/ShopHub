@@ -19,8 +19,9 @@
 
             <ImageView
                 android:id="@+id/img_product"
-                android:layout_width="125dp"
+                android:layout_width="135dp"
                 android:layout_height="114dp"
+                android:paddingTop="10dp"
                 android:src="@drawable/test_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

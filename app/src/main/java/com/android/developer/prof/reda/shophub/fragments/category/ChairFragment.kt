@@ -35,14 +35,16 @@ class ChairFragment : BaseCategoryFragment() {
             viewModel.offerProduct.collect{
                 when(it){
                     is Resource.Loading -> {
-
+                        showOfferProductLoading()
                     }
                     is Resource.Success ->{
                         offerAdapter.submitList(it.data)
+                        hideOfferProductLoading()
                     }
                     is Resource.Error ->{
                         Log.d("ChairFragment", it.message.toString())
                         Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_LONG).show()
+                        hideOfferProductLoading()
                     }
                     else -> Unit
                 }
@@ -53,14 +55,16 @@ class ChairFragment : BaseCategoryFragment() {
             viewModel.bestProduct.collect{
                 when(it){
                     is Resource.Loading -> {
-
+                        showBestProductLoading()
                     }
                     is Resource.Success ->{
                         productAdapter.submitList(it.data)
+                        hideBestProductLoading()
                     }
                     is Resource.Error ->{
                         Log.d("ChairFragment", it.message.toString())
                         Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_LONG).show()
+                        hideBestProductLoading()
                     }
                     else -> Unit
                 }

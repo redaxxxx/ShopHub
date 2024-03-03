@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProductImage"
+                android:layout_width="0dp"
+                android:layout_height="350dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="false">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerProductImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvProductName"
+                style="@style/h3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Product"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvProductPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardProductImage" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$6000"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/g_gray700"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvProductName" />
+            <TextView
+                android:id="@+id/tvCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/g_gray700"
+                app:layout_constraintTop_toBottomOf="@id/tvProductName"
+                app:layout_constraintStart_toStartOf="@id/tvProductName"
+                android:text="Category"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:id="@+id/tvProductColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                app:layout_constraintTop_toBottomOf="@id/tvCategoryName"
+                app:layout_constraintStart_toStartOf="@id/tvCategoryName"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/productColor_chipGroup"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:chipSpacingHorizontal="10dp"
+                app:layout_constraintStart_toStartOf="@id/tvProductColor"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductColor"
+                app:selectionRequired="true" />
+
+            <TextView
+                android:id="@+id/tvProductDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                app:layout_constraintTop_toBottomOf="@id/productColor_chipGroup"
+                app:layout_constraintStart_toStartOf="@id/tvProductColor"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/tvProductDescriptionContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvProductDescription"
+                app:layout_constraintStart_toStartOf="@id/tvProductDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/LoginAccountBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/smallButtonHeight"
+            style="@style/blueButtonStyle"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDescriptionContent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Add to Card"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
+            app:layout_anchor="@id/nestedScrollView"
+            app:layout_anchorGravity="bottom"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

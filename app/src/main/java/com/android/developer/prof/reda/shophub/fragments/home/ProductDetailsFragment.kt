@@ -1,23 +1,43 @@
 package com.android.developer.prof.reda.shophub.fragments.home
 
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.ViewPagerImagesAdapter
+import com.android.developer.prof.reda.shophub.data.CartProduct
+import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.FragmentProductDetailsBinding
+import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.util.hideBottomNavigationView
+import com.android.developer.prof.reda.shophub.viewmodel.DetailsViewModel
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+private const val TAG = "ProductDetailsFragment"
+@AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailsBinding
     private lateinit var viewPagerImagesAdapter: ViewPagerImagesAdapter
+    private var selectedColor: String ?= null
+    private var selectedSize: String ?= null
+    private val viewModel by viewModels<DetailsViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +69,29 @@ class ProductDetailsFragment : Fragment() {
         }
 
         productArgs.product.colors?.let { setupChipGroup(it) }
+
+        binding.addToCartButton.setOnClickListener {
+            viewModel.addUpdateProductInCart(CartProduct(productArgs.product, 1, selectedColor, selectedSize))
+        }
+
+        lifecycleScope.launch {
+            viewModel.addToProduct.collectLatest{
+                when(it){
+                    is Resource.Loading ->{
+                        binding.addToCartButton.startAnimation()
+                    }
+                    is Resource.Success ->{
+                        binding.addToCartButton.revertAnimation()
+                    }
+                    is Resource.Error ->{
+                        binding.addToCartButton.stopAnimation()
+                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
+                        Log.d(TAG, "Error add product in cart ${it.message.toString()}")
+                    }
+                    else -> Unit
+                }
+            }
+        }
     }
 
     private fun setupChipGroup(color: List<String>){
@@ -69,7 +112,6 @@ class ProductDetailsFragment : Fragment() {
                 )
                 chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor(entry.value))
                 chip.isCheckable = true
-
 
                 binding.productColorChipGroup.addView(chip)
                 ind++
@@ -97,5 +139,10 @@ class ProductDetailsFragment : Fragment() {
         }
 
         return colorMap
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.addToCartButton.dispose()
     }
 }

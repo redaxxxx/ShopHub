@@ -92,6 +92,10 @@ dependencies {
 
     //Coroutines with firebase
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1")
+
+    //loading button
+    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
+
 }
 kapt{
     correctErrorTypes = true

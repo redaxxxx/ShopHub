@@ -1,12 +1,15 @@
 package com.android.developer.prof.reda.shophub.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.ProductItemBinding
+import com.android.developer.prof.reda.shophub.helper.getProductPrice
 import com.bumptech.glide.Glide
 
 class BestProductAdapter(val onclickListener: OnItemCLickListener): ListAdapter<Product, BestProductAdapter.BestProductViewHolder>(DiffCallback) {
@@ -23,6 +26,15 @@ class BestProductAdapter(val onclickListener: OnItemCLickListener): ListAdapter<
                     val remainingPricePercentage = it.div(100)
                     val newPrice = remainingPricePercentage * product.price
                     tvNewPrice.text = newPrice.toString()
+                }
+
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+
+                tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                if (product.offerPercentage == null){
+                    tvNewPrice.visibility = View.INVISIBLE
                 }
             }
         }

@@ -37,4 +37,25 @@ class FirebaseCommon(
             onResult(null, it)
         }
     }
+
+    fun decreaseQuantityProduct(documentId: String, onResult: (String?, Exception?) -> Unit){
+        firestore.runTransaction {transition->
+            val documentRef = firestore.document(documentId)
+            val document = transition.get(documentRef)
+            val productObject = document.toObject(CartProduct:: class.java)
+            productObject?.let {cartProduct ->
+                val newQuantity = cartProduct.quantity - 1
+                val newProductObject = cartProduct.copy(quantity = newQuantity)
+                transition.set(documentRef, newProductObject)
+            }
+        }.addOnSuccessListener {
+            onResult(documentId, null)
+        }.addOnFailureListener {
+            onResult(null, it)
+        }
+    }
+
+    enum class QuantityChanging{
+        INCREASE, DECREASE
+    }
 }

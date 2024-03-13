@@ -120,7 +120,7 @@ class ProductDetailsFragment : Fragment() {
         binding.productColorChipGroup.invalidate()
     }
 
-    fun getColorMap(colors: List<String>): Map<String, String>{
+    private fun getColorMap(colors: List<String>): Map<String, String>{
         val colorMap = mutableMapOf<String, String>()
         for (color in colors){
             when(color){

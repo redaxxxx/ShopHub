@@ -1,12 +1,15 @@
 package com.android.developer.prof.reda.shophub.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.BestDealsRvItemBinding
+import com.android.developer.prof.reda.shophub.helper.getProductPrice
 import com.bumptech.glide.Glide
 
 class BestDealsAdapter(val onClickListener: OnItemClickListener): ListAdapter<Product, BestDealsAdapter.BestDealsViewHolder>(DiffCallback) {
@@ -20,13 +23,17 @@ class BestDealsAdapter(val onClickListener: OnItemClickListener): ListAdapter<Pr
                     .into(imgBestDeal)
 
                 tvDealProductName.text = product.name
-                tvOldPrice.text = product.price.toString()
 
-                product.offerPercentage?.let {
-                    val remainingPricePercentage = it.div(100)
-                    val newPrice = remainingPricePercentage * product.price
-                    tvNewPrice.text = newPrice.toString()
+                if(product.offerPercentage != null){
+                    val priceAfterOffer = product.offerPercentage.getProductPrice(product.price, product.offerPercentage)
+                    tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+
+                    tvOldPrice.paintFlags = tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }else {
+                    tvNewPrice.visibility = View.INVISIBLE
                 }
+
+                tvOldPrice.text = "$ ${product.price}"
             }
         }
     }

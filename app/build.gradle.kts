@@ -96,6 +96,10 @@ dependencies {
     //loading button
     implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
 
+    //circular image
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+
 }
 kapt{
     correctErrorTypes = true

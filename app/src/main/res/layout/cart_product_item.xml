@@ -52,22 +52,25 @@
                 android:textSize="14sp"
                 android:textColor="@color/g_gray700" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/productColorsInCart"
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/selectedColorProduct"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 app:chipSpacingHorizontal="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/img_product_cart"
                 app:layout_constraintStart_toStartOf="@id/productPriceInCart"
-                app:layout_constraintTop_toBottomOf="@id/productPriceInCart"
+                app:layout_constraintTop_toBottomOf="@+id/productPriceInCart"
                 app:selectionRequired="false"
-                app:layout_constraintBottom_toBottomOf="@id/img_product_cart" />
+                app:singleSelection="false"/>
 
 
             <ImageView
                 android:id="@+id/plus_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_plus"
                 android:scaleType="centerCrop"
                 android:backgroundTint="@color/white"
@@ -79,7 +82,7 @@
 
             <TextView
                 android:id="@+id/textQuantity"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="4dp"
                 app:layout_constraintEnd_toStartOf="@id/plus_button"
@@ -94,8 +97,8 @@
 
             <ImageView
                 android:id="@+id/minus_button"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_minus"
                 android:scaleType="centerCrop"
                 android:backgroundTint="@color/white"

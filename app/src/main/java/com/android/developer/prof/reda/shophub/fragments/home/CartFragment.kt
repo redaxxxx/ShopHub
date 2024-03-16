@@ -41,7 +41,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CartProductsAdapter()
+        val adapter = CartProductsAdapter(requireActivity())
         binding.rvCart.adapter = adapter
 
         lifecycleScope.launch {

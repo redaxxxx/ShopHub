@@ -113,6 +113,13 @@ class ProductDetailsFragment : Fragment() {
                 chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor(entry.value))
                 chip.isCheckable = true
 
+                chip.setOnCheckedChangeListener{button, isChecked->
+                    val tag = button.tag.toString()
+                    if (isChecked){
+                        selectedColor = tag
+                    }
+                }
+
                 binding.productColorChipGroup.addView(chip)
                 ind++
             }

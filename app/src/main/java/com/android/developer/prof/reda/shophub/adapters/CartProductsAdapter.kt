@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.data.CartProduct
 import com.android.developer.prof.reda.shophub.databinding.CartProductItemBinding
 import com.android.developer.prof.reda.shophub.helper.getProductPrice
@@ -16,7 +17,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
-class CartProductsAdapter(): ListAdapter<CartProduct, CartProductsAdapter.CartProductsViewHolder>(DiffCallback) {
+class CartProductsAdapter(val context: Context): ListAdapter<CartProduct, CartProductsAdapter.CartProductsViewHolder>(DiffCallback) {
 
     companion object DiffCallback: DiffUtil.ItemCallback<CartProduct>(){
         override fun areItemsTheSame(oldItem: CartProduct, newItem: CartProduct): Boolean {
@@ -36,25 +37,44 @@ class CartProductsAdapter(): ListAdapter<CartProduct, CartProductsAdapter.CartPr
 
             binding.textProductInCart.text = cartProduct.product.name
 
-            val priceAfterOffer = cartProduct.product.offerPercentage.getProductPrice(cartProduct.product.price)
-            binding.productPriceInCart.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+            if(cartProduct.product.offerPercentage != null){
+                val priceAfterOffer = cartProduct.product.offerPercentage.getProductPrice(cartProduct.product.price, cartProduct.product.offerPercentage)
+                binding.productPriceInCart.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+            }else{
+                binding.productPriceInCart.text = "$ ${cartProduct.product.price}"
+            }
+
 
             binding.textQuantity.text = cartProduct.quantity.toString()
 
-            when(cartProduct.selectedColor) {
-                "black" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#000000"))
+            binding.selectedColorProduct.removeAllViews()
+            val chip = Chip(context)
+            chip.chipStrokeColor = ColorStateList.valueOf(Color.BLACK)
+            chip.chipStrokeWidth = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                3F,
+                context.resources.displayMetrics
+            )
 
-                "white" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#FFFFFF"))
-                "red" ->  binding.productColorsInCart.setBackgroundColor(Color.parseColor("#FF0000"))
-                "green" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#00FF00"))
-                "blue" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("0000FF"))
-                "yellow" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#FFFF00"))
-                "cyan" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#00FFFF"))
-                "magenta" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#FF00FF"))
-                "gray" -> binding.productColorsInCart.setBackgroundColor(Color.parseColor("#808080"))
-                "coffee" ->binding.productColorsInCart.setBackgroundColor(Color.parseColor("#6F4E37"))
+            when(cartProduct.selectedColor) {
+                "black" -> chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#FF000000"))
+                "white" ->chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#FFFFFFFF"))
+                "red" ->  chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#FF0000"))
+                "green" ->chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#00FF00"))
+                "blue" -> chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#0000FF"))
+                "yellow" -> chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#FFFF00"))
+                "cyan" -> chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#00FFFF"))
+                "magenta" -> chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#FF00FF"))
+                "gray" ->chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#808080"))
+                "coffee" ->chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#6F4E37"))
                 else -> Unit
             }
+
+            chip.isCheckable = true
+
+            binding.selectedColorProduct.addView(chip)
+
+            binding.selectedColorProduct.invalidate()
         }
     }
 
@@ -70,22 +90,5 @@ class CartProductsAdapter(): ListAdapter<CartProduct, CartProductsAdapter.CartPr
         val cartProduct = getItem(position)
         holder.bind(cartProduct)
     }
-    private fun getColorMap(colorSelected: String): Map<String, String>{
-        val colorMap = mutableMapOf<String, String>()
 
-        when(colorSelected){
-            "black" -> colorMap["black"] = "#000000"
-            "white" ->colorMap["white"] = "#FFFFFF"
-            "red" ->colorMap["red"] = "#FF0000"
-            "green" ->colorMap["green"] = "#00FF00"
-            "blue" -> colorMap["blue"] = "0000FF"
-            "yellow" -> colorMap["yellow"] = "#FFFF00"
-            "cyan" -> colorMap["cyan"] = "#00FFFF"
-            "magenta" -> colorMap["magenta"] = "#FF00FF"
-            "gray" -> colorMap["gray"] = "#808080"
-            "coffee" -> colorMap["coffee"] = "#6F4E37"
-            else -> Unit
-        }
-        return colorMap
-    }
 }

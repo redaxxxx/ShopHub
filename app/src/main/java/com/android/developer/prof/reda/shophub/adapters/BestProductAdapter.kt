@@ -21,21 +21,16 @@ class BestProductAdapter(val onclickListener: OnItemCLickListener): ListAdapter<
                     .into(imgProduct)
 
                 tvProductName.text = product.name
-                tvPrice.text = product.price.toString()
-                product.offerPercentage?.let {
-                    val remainingPricePercentage = it.div(100)
-                    val newPrice = remainingPricePercentage * product.price
-                    tvNewPrice.text = newPrice.toString()
-                }
+                if(product.offerPercentage != null){
+                    val priceAfterOffer = product.offerPercentage.getProductPrice(product.price, product.offerPercentage)
+                    tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
 
-                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
-                tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
-
-                tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-                if (product.offerPercentage == null){
+                    tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }else {
                     tvNewPrice.visibility = View.INVISIBLE
                 }
+
+                tvPrice.text = "$ ${product.price}"
             }
         }
     }

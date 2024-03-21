@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.data.CartProduct
 import com.android.developer.prof.reda.shophub.databinding.CartProductItemBinding
 import com.android.developer.prof.reda.shophub.helper.getProductPrice
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 
 class CartProductsAdapter(val context: Context): ListAdapter<CartProduct, CartProductsAdapter.CartProductsViewHolder>(DiffCallback) {
 
@@ -75,6 +73,14 @@ class CartProductsAdapter(val context: Context): ListAdapter<CartProduct, CartPr
             binding.selectedColorProduct.addView(chip)
 
             binding.selectedColorProduct.invalidate()
+
+            binding.plusButton.setOnClickListener {
+                onPlusClick?.invoke(cartProduct)
+            }
+
+            binding.minusButton.setOnClickListener {
+                onMinusClick?.invoke(cartProduct)
+            }
         }
     }
 
@@ -91,4 +97,6 @@ class CartProductsAdapter(val context: Context): ListAdapter<CartProduct, CartPr
         holder.bind(cartProduct)
     }
 
+    var onPlusClick: ((CartProduct) -> Unit) ?= null
+    var onMinusClick: ((CartProduct) -> Unit) ?= null
 }

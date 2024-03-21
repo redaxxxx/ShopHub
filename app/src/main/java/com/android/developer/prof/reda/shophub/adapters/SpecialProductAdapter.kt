@@ -1,12 +1,15 @@
 package com.android.developer.prof.reda.shophub.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.SpecialRvItemBinding
+import com.android.developer.prof.reda.shophub.helper.getProductPrice
 import com.bumptech.glide.Glide
 
 class SpecialProductAdapter(val onClickListener: OnItemClickListener) : ListAdapter<Product, SpecialProductAdapter.SpecialProductViewHolder>(DiffCallback) {
@@ -19,7 +22,16 @@ class SpecialProductAdapter(val onClickListener: OnItemClickListener) : ListAdap
                     .into(binding.imgSpecialRvItem)
 
                 tvNameSpecialRvItem.text = product.name
-                tvPriceSpecialRvItem.text = product.price.toString()
+                if(product.offerPercentage != null){
+                    val priceAfterOffer = product.offerPercentage.getProductPrice(product.price, product.offerPercentage)
+                    tvNewPriceSpecialRvItem.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+
+                    tvPriceSpecialRvItem.paintFlags = tvPriceSpecialRvItem.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }else {
+                    tvNewPriceSpecialRvItem.visibility = View.INVISIBLE
+                }
+
+                tvPriceSpecialRvItem.text = "$ ${product.price}"
             }
         }
     }

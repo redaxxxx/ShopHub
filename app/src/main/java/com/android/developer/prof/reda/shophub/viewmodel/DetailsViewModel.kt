@@ -39,8 +39,8 @@ class DetailsViewModel @Inject constructor(
                         val product = it.first().toObject(CartProduct::class.java)
                         if (product == cartProduct){
                             //increase quantity
-                            val document = it.first().id
-                            increaseQuantity(document, cartProduct)
+                            val documentId = it.first().id
+                            increaseQuantity(documentId, cartProduct)
 
                         }else{
                             //add new Product

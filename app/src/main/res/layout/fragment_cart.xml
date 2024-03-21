@@ -12,103 +12,122 @@
         android:layout_height="match_parent"
         tools:context=".fragments.home.CartFragment">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_cart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guidelineLift"
-            app:layout_constraintEnd_toStartOf="@id/guidelineRight">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cart"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/itemNumberInCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(9)"
-                android:textColor="@color/g_gray700"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:textStyle="bold" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBarCart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_cart"
-            app:layout_constraintStart_toStartOf="@id/toolbar_cart"
-            app:layout_constraintEnd_toEndOf="@id/toolbar_cart" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="@id/toolbar_cart"
-            app:layout_constraintStart_toStartOf="@id/toolbar_cart"
-            app:layout_constraintTop_toBottomOf="@id/progressBarCart"
-            tools:listitem="@layout/cart_product_item"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/toolbar_cart"
-            app:layout_constraintStart_toStartOf="@id/toolbar_cart">
-
-            <TextView
-                android:id="@+id/textTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total"
-                android:textColor="@color/g_gray700"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$600"
-                android:textColor="@color/g_gray700"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/textTotal" />
-
-            <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
-                android:id="@+id/addToCartButton"
-                style="@style/blueButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_cart"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/smallButtonHeight"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="10dp"
-                android:text="Check out"
-                app:finalCornerAngle="50dp"
-                app:initialCornerAngle="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textTotal"
-                app:spinning_bar_padding="8dp"
-                app:spinning_bar_width="4dp" />
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guidelineLift"
+                app:layout_constraintEnd_toStartOf="@id/guidelineRight">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cart"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/itemNumberInCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(9)"
+                    android:textColor="@color/g_gray700"
+                    android:textSize="16sp"
+                    android:paddingStart="10dp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBarCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_cart"
+                app:layout_constraintStart_toStartOf="@id/toolbar_cart"
+                app:layout_constraintEnd_toEndOf="@id/toolbar_cart" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCart"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@id/totalConstraintLayout"
+                app:layout_constraintEnd_toEndOf="@id/toolbar_cart"
+                app:layout_constraintStart_toStartOf="@id/toolbar_cart"
+                app:layout_constraintTop_toBottomOf="@id/progressBarCart"
+                tools:listitem="@layout/cart_product_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/totalConstraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/toolbar_cart"
+                app:layout_constraintStart_toStartOf="@id/toolbar_cart">
+
+                <TextView
+                    android:id="@+id/textTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textColor="@color/g_gray700"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$600"
+                    android:textColor="@color/g_gray700"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textTotal" />
+
+                <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/checkoutButton"
+                    style="@style/blueButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/smallButtonHeight"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Check out"
+                    app:finalCornerAngle="50dp"
+                    app:initialCornerAngle="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textTotal"
+                    app:spinning_bar_padding="8dp"
+                    app:spinning_bar_width="4dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05109489" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.94890511" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
@@ -121,20 +140,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:visibility="gone" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLift"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05109489" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.94890511" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

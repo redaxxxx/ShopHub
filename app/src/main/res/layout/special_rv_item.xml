@@ -52,13 +52,26 @@
                 android:id="@+id/tv_priceSpecialRvItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="150"
                 android:fontFamily="@font/sf_pro_display"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_nameSpecialRvItem"
                 app:layout_constraintStart_toStartOf="@id/tv_nameSpecialRvItem"
                 android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/tv_newPriceSpecialRvItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123"
+                android:fontFamily="@font/sf_pro_display"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_nameSpecialRvItem"
+                app:layout_constraintStart_toEndOf="@id/tv_priceSpecialRvItem"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="4dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/add_to_cart_btn"

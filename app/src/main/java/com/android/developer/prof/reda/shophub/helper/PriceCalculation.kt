@@ -1,8 +1,11 @@
 package com.android.developer.prof.reda.shophub.helper
 
-fun Float?.getProductPrice(price: Float, offer: Float): Float {
+fun Float?.getProductPrice(price: Float, offer: Float?): Float {
 
-    val remainingPricePercentage = 1f - (offer.div(100))
+    if (offer == null){
+        return price
+    }
+    val remainingPricePercentage = 1f - (offer?.div(100)!!)
 
     return remainingPricePercentage * price
 }

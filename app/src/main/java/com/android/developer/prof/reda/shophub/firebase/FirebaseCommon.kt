@@ -23,7 +23,7 @@ class FirebaseCommon(
 
     fun increaseQuantityProduct(documentId: String, onResult: (String?, Exception?) -> Unit){
         firestore.runTransaction {transition->
-            val documentRef = firestore.document(documentId)
+            val documentRef = cartCollection.document(documentId)
             val document = transition.get(documentRef)
             val productObject = document.toObject(CartProduct:: class.java)
             productObject?.let {cartProduct ->
@@ -40,7 +40,7 @@ class FirebaseCommon(
 
     fun decreaseQuantityProduct(documentId: String, onResult: (String?, Exception?) -> Unit){
         firestore.runTransaction {transition->
-            val documentRef = firestore.document(documentId)
+            val documentRef = cartCollection.document(documentId)
             val document = transition.get(documentRef)
             val productObject = document.toObject(CartProduct:: class.java)
             productObject?.let {cartProduct ->

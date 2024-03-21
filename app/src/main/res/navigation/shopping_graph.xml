@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shopping_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/addressFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -47,4 +47,9 @@
             android:name="product"
             app:argType="com.android.developer.prof.reda.shophub.data.Product" />
     </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.AddressFragment"
+        android:label="AddressFragment"
+        tools:layout="@layout/fragment_address"/>
 </navigation>

@@ -4,15 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.developer.prof.reda.shophub.data.CartProduct
 import com.android.developer.prof.reda.shophub.firebase.FirebaseCommon
+import com.android.developer.prof.reda.shophub.helper.getProductPrice
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "CartViewModel"
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
@@ -24,7 +30,41 @@ class CartViewModel @Inject constructor(
     val cartProducts: StateFlow<Resource<List<CartProduct>>>
         get() = _cartProducts
 
+    private val _deleteDialog = MutableSharedFlow<CartProduct>()
+    val deleteDialog: SharedFlow<CartProduct>
+        get() = _deleteDialog
+
     private var cartProductDocument = emptyList<DocumentSnapshot>()
+
+
+    fun deleteItemFromCart(cartProduct: CartProduct){
+        val index = cartProducts.value.data?.indexOf(cartProduct)
+        if (index != null && index != -1){
+            val documentId = cartProductDocument[index].id
+
+            firestore.collection("user").document(firebaseAuth.uid!!).collection("cart")
+                .document(documentId).delete()
+        }
+    }
+
+    val productsPrice = cartProducts.map {
+        when(it){
+            is Resource.Success-> {
+                calculateTotalPrice(it.data!!)
+            }
+            else-> null
+        }
+    }
+
+    private fun calculateTotalPrice(data: List<CartProduct>): Float {
+        return data.sumByDouble { cartProduct ->
+            (cartProduct.product.offerPercentage.getProductPrice(cartProduct.product.price, cartProduct.product.offerPercentage)
+                    * cartProduct.quantity).toDouble()
+        }.toFloat()
+    }
+
+
+
     init {
         fetchCartProducts()
     }
@@ -49,7 +89,6 @@ class CartViewModel @Inject constructor(
                 }
             }
     }
-
     fun quantityChanging(
         cartProduct: CartProduct,
         quantityChanging: FirebaseCommon.QuantityChanging
@@ -59,9 +98,15 @@ class CartViewModel @Inject constructor(
             val documentId = cartProductDocument[index].id
             when(quantityChanging){
                 FirebaseCommon.QuantityChanging.INCREASE ->{
+                    viewModelScope.launch { _cartProducts.emit(Resource.Loading()) }
                     increaseQuantity(documentId)
                 }
                 FirebaseCommon.QuantityChanging.DECREASE ->{
+                    if (cartProduct.quantity == 1){
+                        viewModelScope.launch { _deleteDialog.emit(cartProduct) }
+                        return
+                    }
+                    viewModelScope.launch { _cartProducts.emit(Resource.Loading()) }
                     decreaseQuantity(documentId)
                 }
             }
@@ -87,5 +132,4 @@ class CartViewModel @Inject constructor(
             }
         }
     }
-
 }

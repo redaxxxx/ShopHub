@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shopping_graph"
-    app:startDestination="@id/addressFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_cartFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -52,4 +55,27 @@
         android:name="com.android.developer.prof.reda.shophub.fragments.home.AddressFragment"
         android:label="AddressFragment"
         tools:layout="@layout/fragment_address"/>
+    <fragment
+        android:id="@+id/chooseAddressFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.ChooseAddressFragment"
+        android:label="ChooseAddressFragment"
+        tools:layout="@layout/fragment_choose_address">
+        <action
+            android:id="@+id/action_chooseAddressFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_chooseAddressFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.BillingFragment"
+        android:label="fragment_billing"
+        tools:layout="@layout/fragment_billing" >
+        <action
+            android:id="@+id/action_billingFragment_to_chooseAddressFragment"
+            app:destination="@id/chooseAddressFragment" />
+        <argument android:name="address"
+            app:argType="com.android.developer.prof.reda.shophub.data.Address"/>
+    </fragment>
 </navigation>

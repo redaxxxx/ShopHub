@@ -2,21 +2,20 @@ package com.android.developer.prof.reda.shophub.fragments.home
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.AddressAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentChooseAddressBinding
 import com.android.developer.prof.reda.shophub.util.Resource
-import com.android.developer.prof.reda.shophub.viewmodel.AddressViewModel
 import com.android.developer.prof.reda.shophub.viewmodel.ChooseAddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -27,6 +26,7 @@ private const val TAG = "ChooseAddressFragment"
 class ChooseAddressFragment : Fragment() {
     private lateinit var binding: FragmentChooseAddressBinding
     private val viewModel by viewModels<ChooseAddressViewModel>()
+    private lateinit var adapter: AddressAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,22 +45,33 @@ class ChooseAddressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = AddressAdapter(
+        val bundle  = Bundle()
+
+        adapter = AddressAdapter(
             AddressAdapter.OnClickAddressListener{
-            findNavController().navigate(ChooseAddressFragmentDirections.actionChooseAddressFragmentToBillingFragment(it))
-        })
+                bundle.putParcelable("address", it)
+                findNavController().navigate(R.id.action_chooseAddressFragment_to_billingFragment, bundle)
+            }
+        )
+
+        binding.addressesRv.adapter = adapter
+
+        binding.addNewAddressBtn.setOnClickListener {
+            findNavController().navigate(ChooseAddressFragmentDirections.actionChooseAddressFragmentToAddressFragment(false))
+        }
 
         lifecycleScope.launch {
             viewModel.addresses.collectLatest {
                 when(it){
                     is Resource.Loading ->{
-
+                        Log.d(TAG, "Loading!!!")
                     }
                     is Resource.Success ->{
                         adapter.submitList(it.data)
+                        Log.d(TAG, "Addresses: ${it.data}")
                     }
                     is Resource.Error->{
-                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG)
+                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
                         Log.d(TAG, it.message.toString())
                     }
                     else -> Unit

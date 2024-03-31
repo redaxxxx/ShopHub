@@ -1,6 +1,5 @@
 package com.android.developer.prof.reda.shophub.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.developer.prof.reda.shophub.data.Address
@@ -14,32 +13,29 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChooseAddressViewModel @Inject constructor(
+class BillingViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ) : ViewModel(){
-    private val _addresses = MutableStateFlow<Resource<List<Address>>>(Resource.Unspecified())
-    val addresses: StateFlow<Resource<List<Address>>>
-        get() = _addresses
+
+    private val _latestAddress = MutableStateFlow<Resource<List<Address?>>>(Resource.Unspecified())
+    val latestAddress : StateFlow<Resource<List<Address?>>>
+        get() = _latestAddress
 
     init {
-        fetchAddresses()
+        getLatestAddress()
     }
-    private fun fetchAddresses(){
-        viewModelScope.launch {
-            _addresses.emit(Resource.Loading())
-        }
-
+    private fun getLatestAddress(){
         firestore.collection("user").document(auth.uid!!).collection("address")
-            .addSnapshotListener{value, error->
-                if (error != null && value == null){
-                    viewModelScope.launch { _addresses.emit(Resource.Error(error.message.toString())) }
+            .get()
+            .addOnSuccessListener {
+                viewModelScope.launch {
+                    _latestAddress.emit(Resource.Success(it.toObjects(Address::class.java)))
                 }
-                else{
-                    viewModelScope.launch {
-
-                        _addresses.emit(Resource.Success(value!!.toObjects(Address::class.java)))
-                    }
+            }
+            .addOnFailureListener {
+                viewModelScope.launch {
+                    _latestAddress.emit(Resource.Error(it.message.toString()))
                 }
             }
     }

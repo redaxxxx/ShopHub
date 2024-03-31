@@ -11,7 +11,6 @@ data class AddNewAddressFailedState(
     val firstName: AddressValidation,
     val familyName: AddressValidation,
     val phoneNumber: AddressValidation,
-    val anotherPhoneNumber: AddressValidation,
     val address: AddressValidation,
     val state: AddressValidation,
     val city: AddressValidation

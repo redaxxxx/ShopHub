@@ -11,12 +11,20 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.CartProductsAdapter
+import com.android.developer.prof.reda.shophub.data.CartProduct
 import com.android.developer.prof.reda.shophub.databinding.FragmentCartBinding
 import com.android.developer.prof.reda.shophub.firebase.FirebaseCommon
+import com.android.developer.prof.reda.shophub.util.ACCOUNT_OPTIONS_FRAGMENT
+import com.android.developer.prof.reda.shophub.util.ADD_ADDRESS_FRAGMENT
+import com.android.developer.prof.reda.shophub.util.BILLING_FRAGMENT
 import com.android.developer.prof.reda.shophub.util.Resource
+import com.android.developer.prof.reda.shophub.util.SHOPPING_ACTIVITY
 import com.android.developer.prof.reda.shophub.viewmodel.CartViewModel
+import com.android.developer.prof.reda.shophub.viewmodel.IntroductionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,6 +33,9 @@ private const val TAG = "CartFragment"
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
     private val viewModel by viewModels<CartViewModel>()
+    private var products = emptyList<CartProduct>()
+    private var totalPrice: Float = 0f
+    private val adapter by lazy { CartProductsAdapter(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +55,6 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CartProductsAdapter(requireActivity())
         binding.rvCart.adapter = adapter
 
         adapter.onPlusClick = {
@@ -76,6 +86,9 @@ class CartFragment : Fragment() {
             viewModel.productsPrice.collectLatest {price->
                 price.let {
                     binding.tvTotalPrice.text = "$ $price"
+                    if (price != null) {
+                        totalPrice = price
+                    }
                 }
             }
         }
@@ -95,7 +108,7 @@ class CartFragment : Fragment() {
                             binding.itemNumberInCart.text = "(${count})"
                             binding.progressBarCart.visibility = View.INVISIBLE
                             adapter.submitList(it.data)
-
+                            products = it.data
                         }
 
                     }
@@ -109,7 +122,29 @@ class CartFragment : Fragment() {
             }
         }
 
-
+        lifecycleScope.launch {
+            viewModel.navigate.collectLatest {
+                when(it){
+                    BILLING_FRAGMENT-> {
+                        binding.checkoutButton.setOnClickListener {
+                            findNavController().navigate(
+                                CartFragmentDirections.actionCartFragmentToBillingFragment(
+                                    products.toTypedArray(),
+                                    totalPrice
+                                )
+                            )
+                        }
+                    }
+                    ADD_ADDRESS_FRAGMENT-> {
+                        binding.checkoutButton.setOnClickListener {
+                            findNavController().navigate(
+                                CartFragmentDirections.actionCartFragmentToAddressFragment(true)
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun hideEmptyCart() {

@@ -1,10 +1,13 @@
 package com.android.developer.prof.reda.shophub.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.developer.prof.reda.shophub.data.CartProduct
 import com.android.developer.prof.reda.shophub.firebase.FirebaseCommon
 import com.android.developer.prof.reda.shophub.helper.getProductPrice
+import com.android.developer.prof.reda.shophub.util.ADD_ADDRESS_FRAGMENT
+import com.android.developer.prof.reda.shophub.util.BILLING_FRAGMENT
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -17,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 private const val TAG = "CartViewModel"
 @HiltViewModel
@@ -36,7 +40,9 @@ class CartViewModel @Inject constructor(
 
     private var cartProductDocument = emptyList<DocumentSnapshot>()
 
-
+    private val _navigate = MutableStateFlow(0)
+    val navigate: StateFlow<Int>
+        get() = _navigate
     fun deleteItemFromCart(cartProduct: CartProduct){
         val index = cartProducts.value.data?.indexOf(cartProduct)
         if (index != null && index != -1){
@@ -62,11 +68,24 @@ class CartViewModel @Inject constructor(
                     * cartProduct.quantity).toDouble()
         }.toFloat()
     }
-
-
-
     init {
         fetchCartProducts()
+
+        firestore.collection("user").document(firebaseAuth.uid!!).collection("address").get()
+            .addOnSuccessListener {
+                if (it.isEmpty){
+                    viewModelScope.launch{
+                        _navigate.emit(ADD_ADDRESS_FRAGMENT)
+                    }
+                }else{
+                    viewModelScope.launch {
+                        _navigate.emit(BILLING_FRAGMENT)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.d(TAG, it.message.toString())
+            }
     }
     private fun fetchCartProducts(){
         viewModelScope.launch {

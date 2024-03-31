@@ -37,6 +37,7 @@ class AddressViewModel @Inject constructor(
 
     private val _validation = Channel<AddNewAddressFailedState>()
     val validation = _validation.receiveAsFlow()
+
     fun addNewAddress(address: Address){
         if (isValidation(address)){
             viewModelScope.launch {
@@ -58,7 +59,6 @@ class AddressViewModel @Inject constructor(
             validationAddFirstName(address.firstName),
             validationFamilyName(address.familyName),
             validationPhoneNumber(address.phoneNumber),
-                validationAnotherPhoneNumber(address.anotherPhoneNumber),
             validationAddress(address.address),
             validationState(address.state),
                 validationCity(address.city)
@@ -76,7 +76,6 @@ class AddressViewModel @Inject constructor(
         val firstName = validationAddFirstName(newAddress.firstName)
         val familyName = validationFamilyName(newAddress.familyName)
         val phoneNumber = validationPhoneNumber(newAddress.phoneNumber)
-        val anotherPhoneNumber = validationAnotherPhoneNumber(newAddress.anotherPhoneNumber)
         val address = validationAddress(newAddress.address)
         val state = validationState(newAddress.state)
         val city = validationCity(newAddress.city)
@@ -84,7 +83,6 @@ class AddressViewModel @Inject constructor(
         return firstName is AddressValidation.Success &&
                 familyName is AddressValidation.Success &&
                 phoneNumber is AddressValidation.Success &&
-                anotherPhoneNumber is AddressValidation.Success &&
                 address is AddressValidation.Success &&
                 state is AddressValidation.Success &&
                 city is AddressValidation.Success

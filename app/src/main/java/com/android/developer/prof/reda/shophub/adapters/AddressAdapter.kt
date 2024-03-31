@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.android.developer.prof.reda.shophub.data.Address
 import com.android.developer.prof.reda.shophub.databinding.AddressItemBinding
 
-class AddressAdapter(val addressClickListener: OnClickAddressListener)
+class AddressAdapter(private val addressClickListener: OnClickAddressListener)
     : ListAdapter<Address, AddressAdapter.AddressViewHolder>(DiffCallback) {
 
     inner class AddressViewHolder(private val binding: AddressItemBinding): ViewHolder(binding.root){
@@ -26,7 +26,7 @@ class AddressAdapter(val addressClickListener: OnClickAddressListener)
         }
 
         override fun areContentsTheSame(oldItem: Address, newItem: Address): Boolean {
-            return oldItem == newItem
+            return oldItem.address == newItem.address
         }
 
     }
@@ -44,7 +44,7 @@ class AddressAdapter(val addressClickListener: OnClickAddressListener)
         holder.bind(address)
 
         holder.itemView.setOnClickListener{
-            addressClickListener.clickListener(address)
+            addressClickListener.onCLickAddress(address)
         }
     }
 

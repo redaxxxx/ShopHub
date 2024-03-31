@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/g_card_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/imgBillingRvItem"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/test_image" />
+
+            <TextView
+                android:id="@+id/billingProductName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/imgBillingRvItem"
+                app:layout_constraintTop_toTopOf="@id/imgBillingRvItem"
+                android:text="Product Name"
+                android:layout_marginStart="8dp"
+                style="@style/h3"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/billingProductColorLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color: "
+                android:textColor="@color/gray"
+                app:layout_constraintTop_toBottomOf="@id/billingProductName"
+                app:layout_constraintStart_toStartOf="@id/billingProductName"
+                style="@style/h3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvBillingProductColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/billingProductColorLabel"
+                app:layout_constraintTop_toTopOf="@id/billingProductColorLabel"
+                android:text="Red"
+                style="@style/h3"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/billingProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$67.50"
+                style="@style/h3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/billingProductName"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

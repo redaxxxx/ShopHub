@@ -87,6 +87,7 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.50")
     kapt ("com.google.dagger:hilt-compiler:2.50")
 
+
     //Firebase
     implementation ("com.google.firebase:firebase-auth:21.0.6")
 

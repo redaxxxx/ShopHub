@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.data.Address
 import com.android.developer.prof.reda.shophub.databinding.FragmentAddressBinding
@@ -27,6 +28,13 @@ private const val TAG = "AddressFragment"
 class AddressFragment : Fragment() {
     private lateinit var binding: FragmentAddressBinding
     private val viewModel by viewModels<AddressViewModel>()
+    private var isFirstTime = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        isFirstTime = AddressFragmentArgs.fromBundle(requireArguments()).firstTime
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,8 +67,16 @@ class AddressFragment : Fragment() {
                     binding.cityEt.text.toString()
                 )
             )
+            if (isFirstTime){
+                findNavController().navigate(R.id.action_addressFragment_to_billingFragment)
+            }else{
+                findNavController().navigate(R.id.action_addressFragment_to_chooseAddressFragment)
+            }
         }
 
+        binding.addressCancelButton.setOnClickListener {
+            findNavController().navigate(R.id.action_addressFragment_to_chooseAddressFragment)
+        }
         lifecycleScope.launch {
             viewModel.addNewAddress.collectLatest {
                 when(it){
@@ -109,12 +125,7 @@ class AddressFragment : Fragment() {
                         error = it.phoneNumber.message
                     }
                 }
-                if (it.anotherPhoneNumber is AddressValidation.Failed){
-                    binding.anotherPhoneNumberOutline.apply {
-                        requestFocus()
-                        error = it.anotherPhoneNumber.message
-                    }
-                }
+
                 if (it.address is AddressValidation.Failed){
                     binding.addressOutline.apply {
                         requestFocus()

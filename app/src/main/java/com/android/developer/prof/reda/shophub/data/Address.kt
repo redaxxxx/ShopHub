@@ -7,13 +7,15 @@ import kotlinx.android.parcel.Parcelize
 data class Address(
     val firstName: String,
     val familyName: String,
+    val country: String,
     val phoneNumber: String,
     val anotherPhoneNumber: String? =null,
     val address: String,
     val moreAddressDetails: String? = null,
     val state: String,
-    val city: String
+    val city: String,
+    val postalCode: Int
 ): Parcelable
 {
-    constructor(): this("", "", "", "", "", "", "","")
+    constructor(): this("", "", "","", "", "", "", "","", 0)
 }

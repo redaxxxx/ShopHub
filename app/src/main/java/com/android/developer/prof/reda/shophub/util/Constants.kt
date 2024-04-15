@@ -8,5 +8,5 @@ const val INTRODUCTION_KEY = "IntroductionKey"
 const val SHOPPING_ACTIVITY = 23
 val ACCOUNT_OPTIONS_FRAGMENT  = R.id.action_introduceFragment_to_accountOptionsFragment
 
-const val BILLING_FRAGMENT = 25
-const val ADD_ADDRESS_FRAGMENT = 26
+val BILLING_FRAGMENT = R.id.action_cartFragment_to_billingFragment
+val ADD_ADDRESS_FRAGMENT = R.id.action_cartFragment_to_addressFragment

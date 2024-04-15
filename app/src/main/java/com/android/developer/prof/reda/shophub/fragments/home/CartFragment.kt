@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.CartProductsAdapter
 import com.android.developer.prof.reda.shophub.data.CartProduct
@@ -25,6 +26,7 @@ import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.util.SHOPPING_ACTIVITY
 import com.android.developer.prof.reda.shophub.viewmodel.CartViewModel
 import com.android.developer.prof.reda.shophub.viewmodel.IntroductionViewModel
+import com.android.developer.prof.reda.shophub.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -36,6 +38,7 @@ class CartFragment : Fragment() {
     private var products = emptyList<CartProduct>()
     private var totalPrice: Float = 0f
     private val adapter by lazy { CartProductsAdapter(requireActivity()) }
+    private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.shopping_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -127,18 +130,20 @@ class CartFragment : Fragment() {
                 when(it){
                     BILLING_FRAGMENT-> {
                         binding.checkoutButton.setOnClickListener {
+//                            sharedViewModel.setOrderInfo(products, totalPrice)
                             findNavController().navigate(
                                 CartFragmentDirections.actionCartFragmentToBillingFragment(
                                     products.toTypedArray(),
                                     totalPrice
                                 )
                             )
+
                         }
                     }
                     ADD_ADDRESS_FRAGMENT-> {
                         binding.checkoutButton.setOnClickListener {
                             findNavController().navigate(
-                                CartFragmentDirections.actionCartFragmentToAddressFragment(true)
+                                R.id.action_cartFragment_to_addressFragment
                             )
                         }
                     }

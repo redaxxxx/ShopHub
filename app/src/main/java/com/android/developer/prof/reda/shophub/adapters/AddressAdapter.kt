@@ -2,21 +2,28 @@ package com.android.developer.prof.reda.shophub.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.data.Address
 import com.android.developer.prof.reda.shophub.databinding.AddressItemBinding
 
-class AddressAdapter(private val addressClickListener: OnClickAddressListener)
-    : ListAdapter<Address, AddressAdapter.AddressViewHolder>(DiffCallback) {
+class AddressAdapter : ListAdapter<Address, AddressAdapter.AddressViewHolder>(DiffCallback) {
 
     inner class AddressViewHolder(private val binding: AddressItemBinding): ViewHolder(binding.root){
         fun bind(address: Address){
             binding.tvNameOfChooseAddress.text = "${address.firstName} ${address.familyName}"
             binding.tvAddressOfChooseAddress.text = address.address
-            binding.tvStateOfChooseAddress.text = address.state
-            binding.tvCityOfChooseAddress.text = address.city
+            binding.tvPhoneNumberChooseAddress.text = address.phoneNumber
+
+            binding.editAddressBtn.setOnClickListener {
+                onEditClick?.invoke(address)
+            }
+        }
+        fun setStrokeColor(){
+            binding.cardViewAddress.strokeColor = binding.root.resources.getColor(R.color.g_blue)
         }
     }
 
@@ -41,14 +48,12 @@ class AddressAdapter(private val addressClickListener: OnClickAddressListener)
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val address = getItem(position)
-        holder.bind(address)
-
         holder.itemView.setOnClickListener{
-            addressClickListener.onCLickAddress(address)
+            onAddressClick?.invoke(address)
+            holder.setStrokeColor()
         }
+        holder.bind(address)
     }
-
-    class OnClickAddressListener(val clickListener: (address:Address) -> Unit){
-        fun onCLickAddress(address: Address) = clickListener(address)
-    }
+    var onAddressClick: ((Address) -> Unit) ?= null
+    var onEditClick: ((Address) -> Unit) ?= null
 }

@@ -2,6 +2,7 @@ package com.android.developer.prof.reda.shophub.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +43,15 @@ class ShoppingActivity : AppCompatActivity() {
                     }
                     else -> Unit
                 }
+            }
+        }
+
+        navController.addOnDestinationChangedListener{_, destination, _ ->
+            if (destination.id == R.id.homeFragment || destination.id == R.id.cartFragment ||
+                destination.id == R.id.profileFragment || destination.id == R.id.searchFragment){
+                binding.bottomNavView.visibility = View.VISIBLE
+            } else{
+                binding.bottomNavView.visibility = View.GONE
             }
         }
     }

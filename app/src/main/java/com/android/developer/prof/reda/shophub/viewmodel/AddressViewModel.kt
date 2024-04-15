@@ -15,12 +15,14 @@ import com.android.developer.prof.reda.shophub.util.validationFirstName
 import com.android.developer.prof.reda.shophub.util.validationPhoneNumber
 import com.android.developer.prof.reda.shophub.util.validationState
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.withIndex
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -34,6 +36,11 @@ class AddressViewModel @Inject constructor(
     private val _addNewAddress = MutableStateFlow<Resource<Address>>(Resource.Unspecified())
     val addNewAddress: StateFlow<Resource<Address>>
         get() = _addNewAddress
+
+    private var addressProductId = ""
+//    private val _updateAddress = MutableStateFlow<Resource<Address>>(Resource.Unspecified())
+//    val updateAddress: StateFlow<Resource<Address>>
+//        get() = _updateAddress
 
     private val _validation = Channel<AddNewAddressFailedState>()
     val validation = _validation.receiveAsFlow()
@@ -71,8 +78,7 @@ class AddressViewModel @Inject constructor(
 
     }
 
-
-    fun isValidation(newAddress: Address):Boolean{
+    private fun isValidation(newAddress: Address):Boolean{
         val firstName = validationAddFirstName(newAddress.firstName)
         val familyName = validationFamilyName(newAddress.familyName)
         val phoneNumber = validationPhoneNumber(newAddress.phoneNumber)

@@ -58,42 +58,44 @@
         android:name="com.android.developer.prof.reda.shophub.fragments.home.AddressFragment"
         android:label="AddressFragment"
         tools:layout="@layout/fragment_address">
-        <action
-            android:id="@+id/action_addressFragment_to_chooseAddressFragment"
-            app:destination="@id/chooseAddressFragment" />
-        <argument
-            android:name="firstTime"
-            app:argType="boolean" />
+
         <action
             android:id="@+id/action_addressFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
+        <argument
+            android:name="isEditingAddress"
+            app:argType="boolean" />
+
     </fragment>
     <fragment
         android:id="@+id/chooseAddressFragment"
         android:name="com.android.developer.prof.reda.shophub.fragments.home.ChooseAddressFragment"
         android:label="ChooseAddressFragment"
         tools:layout="@layout/fragment_choose_address">
-        <action
-            android:id="@+id/action_chooseAddressFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+
         <action
             android:id="@+id/action_chooseAddressFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
+        <action
+            android:id="@+id/action_chooseAddressFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/billingFragment"
         android:name="com.android.developer.prof.reda.shophub.fragments.home.BillingFragment"
         android:label="fragment_billing"
         tools:layout="@layout/fragment_billing" >
-        <action
-            android:id="@+id/action_billingFragment_to_chooseAddressFragment"
-            app:destination="@id/chooseAddressFragment" />
+
         <argument
             android:name="products"
             app:argType="com.android.developer.prof.reda.shophub.data.CartProduct[]" />
         <argument
             android:name="totalPrice"
             app:argType="float" />
+        <action
+            android:id="@+id/action_billingFragment_to_chooseAddressFragment"
+            app:destination="@id/chooseAddressFragment" />
 
     </fragment>
 </navigation>

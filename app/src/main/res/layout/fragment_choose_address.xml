@@ -43,27 +43,41 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/chooseAddressBtn"
             app:layout_constraintEnd_toStartOf="@+id/chooseAddressGuidelineRight"
             app:layout_constraintStart_toStartOf="@+id/chooseAddressGuidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/billingToolbar"
             tools:listitem="@layout/address_item" />
 
+        <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/chooseAddressBtn"
+            style="@style/blueButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mediumButtonHeight"
+            android:layout_marginEnd="8dp"
+            android:text="Choose Address"
+            app:finalCornerAngle="50dp"
+            app:initialCornerAngle="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/addNewAddressBtn"
+            app:layout_constraintEnd_toStartOf="@id/addNewAddressBtn"
+            app:layout_constraintStart_toStartOf="@+id/chooseAddressGuidelineLeft"
+            app:spinning_bar_padding="8dp"
+            app:spinning_bar_width="4dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addNewAddressBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/g_blue"
-            android:contentDescription="Add New Address"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"
             android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/chooseAddressGuidelineRight" />
+            app:layout_constraintEnd_toStartOf="@+id/chooseAddressGuidelineRight"
+            android:contentDescription="ChooseAddress" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/chooseAddressGuidelineLeft"

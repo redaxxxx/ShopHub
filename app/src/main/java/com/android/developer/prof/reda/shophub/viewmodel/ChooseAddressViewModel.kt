@@ -1,11 +1,11 @@
 package com.android.developer.prof.reda.shophub.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.developer.prof.reda.shophub.data.Address
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,11 +33,12 @@ class ChooseAddressViewModel @Inject constructor(
         firestore.collection("user").document(auth.uid!!).collection("address")
             .addSnapshotListener{value, error->
                 if (error != null && value == null){
-                    viewModelScope.launch { _addresses.emit(Resource.Error(error.message.toString())) }
+                    viewModelScope.launch {
+                        _addresses.emit(Resource.Error(error.message.toString()))
+                    }
                 }
                 else{
                     viewModelScope.launch {
-
                         _addresses.emit(Resource.Success(value!!.toObjects(Address::class.java)))
                     }
                 }

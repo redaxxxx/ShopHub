@@ -65,6 +65,7 @@ class ChooseAddressFragment : Fragment() {
 
         adapter.onEditClick = {
             sharedViewModel.setAddressInfo(it)
+//            Log.d(TAG, "Address Document ID: ${viewModel.getDocumentId(it)}")
             findNavController().navigate(ChooseAddressFragmentDirections.actionChooseAddressFragmentToAddressFragment(true))
         }
 

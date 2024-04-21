@@ -65,6 +65,9 @@
         <argument
             android:name="isEditingAddress"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_addressFragment_to_chooseAddressFragment"
+            app:destination="@id/chooseAddressFragment" />
 
     </fragment>
     <fragment

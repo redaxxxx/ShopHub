@@ -26,6 +26,7 @@ import com.android.developer.prof.reda.shophub.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 private const val TAG = "AddressFragment"
 
@@ -46,6 +47,7 @@ class AddressFragment : Fragment() {
         super.onCreate(savedInstanceState)
 //        address = AddressFragmentArgs.fromBundle(requireArguments()).address!!
         isEditingAddress = AddressFragmentArgs.fromBundle(requireArguments()).isEditingAddress
+        Log.d(TAG, "is Editing Address: $isEditingAddress")
     }
 
     override fun onCreateView(
@@ -68,6 +70,23 @@ class AddressFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (isEditingAddress) {
+
+            lifecycleScope.launch {
+                sharedViewModel.addressOrder.collectLatest {
+                    when (it) {
+                        is Resource.Success -> {
+                            editAddress = it.data
+                        }
+
+                        is Resource.Error -> {
+                            Log.d(TAG, it.message.toString())
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+
             binding.firstNameET.setText(editAddress?.firstName)
             binding.familyNameET.setText(editAddress?.familyName)
             binding.countryNameET.setText(editAddress?.country)
@@ -78,10 +97,49 @@ class AddressFragment : Fragment() {
             binding.stateEt.setText(editAddress?.state)
             binding.cityEt.setText(editAddress?.city)
             binding.postalCodeEt.setText(editAddress?.postalCode.toString())
-        }else{
-            binding.saveAddresstButton.setOnClickListener {
+
+
+//            binding.saveAddresstButton.setOnClickListener {
+//                viewModel.updateAddress(
+//                    Address(
+//                        editAddress!!.id,
+//                        binding.firstNameET.text.toString(),
+//                        binding.familyNameET.text.toString(),
+//                        binding.countryNameET.text.toString(),
+//                        binding.phoneNumberET.text.toString(),
+//                        binding.anotherPhoneNumberET.text.toString(),
+//                        binding.addressET.text.toString(),
+//                        binding.moreAddressDetailsET.text.toString(),
+//                        binding.stateEt.text.toString(),
+//                        binding.cityEt.text.toString(),
+//                        binding.postalCodeEt.text.toString().toInt()
+//                    )
+//                )
+//            }
+        }
+
+
+        binding.saveAddresstButton.setOnClickListener {
+            if (isEditingAddress){
+                viewModel.updateAddress(
+                    Address(
+                        editAddress!!.id,
+                        binding.firstNameET.text.toString(),
+                        binding.familyNameET.text.toString(),
+                        binding.countryNameET.text.toString(),
+                        binding.phoneNumberET.text.toString(),
+                        binding.anotherPhoneNumberET.text.toString(),
+                        binding.addressET.text.toString(),
+                        binding.moreAddressDetailsET.text.toString(),
+                        binding.stateEt.text.toString(),
+                        binding.cityEt.text.toString(),
+                        binding.postalCodeEt.text.toString().toInt()
+                    )
+                )
+            }else{
                 viewModel.addNewAddress(
                     Address(
+                        UUID.randomUUID().toString(),
                         binding.firstNameET.text.toString(),
                         binding.familyNameET.text.toString(),
                         binding.countryNameET.text.toString(),
@@ -132,6 +190,20 @@ class AddressFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launch {
+            viewModel.updatedAddress.collectLatest {
+                when(it){
+                    is Resource.Success ->{
+                        Log.d(TAG, "Address ID: ${it.data?.id}")
+                        findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToChooseAddressFragment())
+                    }
+                    is Resource.Error ->{
+                        Log.d(TAG, it.message.toString())
+                    }
+                    else -> Unit
+                }
+            }
+        }
 
         lifecycleScope.launch {
             viewModel.validation.collect {
@@ -176,21 +248,6 @@ class AddressFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
-            sharedViewModel.addressOrder.collectLatest {
-                when (it) {
-                    is Resource.Success -> {
-                        editAddress = it.data
-                    }
-
-                    is Resource.Error -> {
-                        Log.d(TAG, it.message.toString())
-                    }
-
-                    else -> Unit
-                }
-            }
-        }
 
         binding.postalCodeEt.setOnTouchListener(mOnTouchListener)
         binding.firstNameET.setOnTouchListener(mOnTouchListener)

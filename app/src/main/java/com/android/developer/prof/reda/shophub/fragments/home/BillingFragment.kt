@@ -1,29 +1,29 @@
 package com.android.developer.prof.reda.shophub.fragments.home
 
-import android.os.Build
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.BillingProductAdapter
 import com.android.developer.prof.reda.shophub.data.Address
 import com.android.developer.prof.reda.shophub.data.CartProduct
+import com.android.developer.prof.reda.shophub.data.order.Order
+import com.android.developer.prof.reda.shophub.data.order.OrderStatus
 import com.android.developer.prof.reda.shophub.databinding.FragmentBillingBinding
 import com.android.developer.prof.reda.shophub.util.Resource
-import com.android.developer.prof.reda.shophub.viewmodel.BillingViewModel
+import com.android.developer.prof.reda.shophub.viewmodel.OrderViewModel
 import com.android.developer.prof.reda.shophub.viewmodel.SharedViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,10 +34,11 @@ private const val TAG = "BillingFragment"
 class BillingFragment : Fragment() {
     private lateinit var binding: FragmentBillingBinding
     private val adapter by lazy { BillingProductAdapter() }
-    private val viewModel by viewModels<BillingViewModel>()
     private var products = emptyList<CartProduct>()
     private var totalPrice = 0f
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.shopping_graph)
+    private val selectedAddress: Address ?= null
+    private val orderViewModel by viewModels<OrderViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,9 +87,56 @@ class BillingFragment : Fragment() {
             }
         }
 
+        lifecycleScope.launch {
+            orderViewModel.order.collectLatest {
+                when(it){
+                    is Resource.Loading ->{
+                        binding.placeOrder.startAnimation()
+                    }
+                    is Resource.Success ->{
+                        binding.placeOrder.revertAnimation()
+                        findNavController().navigateUp()
+                        Snackbar.make(requireView(), "Your order was Placed", Snackbar.LENGTH_LONG).show()
+                    }
+                    is Resource.Error ->{
+                        Log.d(TAG, it.message.toString())
+                        Toast.makeText(requireContext(), "Error ${it.message.toString()}", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
         binding.tvTotalPrice.text = "$ $totalPrice"
 
-//        val selectedAddress = requireArguments().getParcelable<Address>("address")
-//
+        binding.placeOrder.setOnClickListener {
+            showOrderConfirmationDialog()
+        }
+
+
+    }
+
+    private fun showOrderConfirmationDialog(){
+        val alertDialog = AlertDialog.Builder(requireActivity()).apply {
+            setTitle("Place Order Items")
+            setMessage("Do you want to Order your items?")
+            setNegativeButton("Cancel"){dialog,_->
+                dialog.dismiss()
+            }
+            setPositiveButton("Yes"){dialog,_->
+                orderViewModel.placedOrder(
+                    Order(
+                        OrderStatus.Ordered.status,
+                        totalPrice,
+                        products,
+                        selectedAddress!!
+                    )
+                )
+                dialog.dismiss()
+            }
+        }
+        alertDialog.create()
+        alertDialog.show()
     }
 }

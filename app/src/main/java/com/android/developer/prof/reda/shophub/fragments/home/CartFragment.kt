@@ -143,7 +143,7 @@ class CartFragment : Fragment() {
                     ADD_ADDRESS_FRAGMENT-> {
                         binding.checkoutButton.setOnClickListener {
                             findNavController().navigate(
-                                R.id.action_cartFragment_to_addressFragment
+                                CartFragmentDirections.actionCartFragmentToAddressFragment(false)
                             )
                         }
                     }

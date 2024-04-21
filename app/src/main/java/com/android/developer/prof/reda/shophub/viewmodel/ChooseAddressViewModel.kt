@@ -44,4 +44,5 @@ class ChooseAddressViewModel @Inject constructor(
                 }
             }
     }
+
 }

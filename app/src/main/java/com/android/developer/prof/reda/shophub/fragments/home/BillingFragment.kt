@@ -37,7 +37,7 @@ class BillingFragment : Fragment() {
     private var products = emptyList<CartProduct>()
     private var totalPrice = 0f
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.shopping_graph)
-    private val selectedAddress: Address ?= null
+    private var selectedAddress: Address ?= null
     private val orderViewModel by viewModels<OrderViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +78,7 @@ class BillingFragment : Fragment() {
                     is Resource.Success ->{
                         binding.tvBuyerName.text = "${it.data?.firstName} ${it.data?.familyName}"
                         binding.tvBuyerAddress.text = "${it.data?.address}"
+                        selectedAddress = it.data
                     }
                     is Resource.Error ->{
                         Log.d(TAG, it.message.toString())

@@ -16,5 +16,11 @@
     <string name="reset_password_text">Reset Password</string>
     <string name="reset_password_message_text">we will send you the password reset link to your email</string>
     <string name="add_to_cart_text">Add to cart</string>
+    <string name="Orders">Orders</string>
+    <string name="arrow_forward">Arrow Forward</string>
+    <string name="address">Address\n</string>
+    <string name="settings">Account Settings</string>
+    <string name="payment">Payment</string>
+    <string name="favorite">My Favorite</string>
 
 </resources>

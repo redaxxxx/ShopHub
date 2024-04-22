@@ -38,7 +38,6 @@ class CartFragment : Fragment() {
     private var products = emptyList<CartProduct>()
     private var totalPrice: Float = 0f
     private val adapter by lazy { CartProductsAdapter(requireActivity()) }
-    private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.shopping_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -154,18 +153,20 @@ class CartFragment : Fragment() {
 
     private fun hideEmptyCart() {
         binding.apply {
-            cartEmptyLayout.visibility = View.GONE
-            rvCart.visibility = View.VISIBLE
-            progressBarCart.visibility = View.VISIBLE
-            totalConstraintLayout.visibility = View.VISIBLE
+            emptyConstraintLayout.visibility = View.GONE
+//            rvCart.visibility = View.VISIBLE
+//            progressBarCart.visibility = View.VISIBLE
+//            totalConstraintLayout.visibility = View.VISIBLE
+            constraintLayout.visibility = View.VISIBLE
         }
     }
     private fun showEmptyCart() {
         binding.apply {
-            cartEmptyLayout.visibility = View.VISIBLE
-            rvCart.visibility = View.GONE
-            progressBarCart.visibility = View.GONE
-            totalConstraintLayout.visibility = View.GONE
+            emptyConstraintLayout.visibility = View.VISIBLE
+//            rvCart.visibility = View.GONE
+//            progressBarCart.visibility = View.GONE
+//            totalConstraintLayout.visibility = View.GONE
+            constraintLayout.visibility = View.GONE
         }
     }
 

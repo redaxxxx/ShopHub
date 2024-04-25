@@ -19,9 +19,7 @@
         android:name="com.android.developer.prof.reda.shophub.fragments.home.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -35,14 +33,32 @@
             android:id="@+id/action_cartFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
         <action
-            android:id="@+id/action_cartFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+            android:id="@+id/action_cartFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+
     </fragment>
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.android.developer.prof.reda.shophub.fragments.home.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/accountFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_favoriteProductsFragment"
+            app:destination="@id/favoriteProductsFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.android.developer.prof.reda.shophub.fragments.home.ProductDetailsFragment"
@@ -54,10 +70,10 @@
             app:argType="com.android.developer.prof.reda.shophub.data.Product" />
     </fragment>
     <fragment
-        android:id="@+id/addressFragment"
-        android:name="com.android.developer.prof.reda.shophub.fragments.home.AddressFragment"
+        android:id="@+id/addAddressFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.AddAddressFragment"
         android:label="AddressFragment"
-        tools:layout="@layout/fragment_address">
+        tools:layout="@layout/fragment_add_address">
 
         <action
             android:id="@+id/action_addressFragment_to_billingFragment"
@@ -66,22 +82,20 @@
             android:name="isEditingAddress"
             app:argType="boolean" />
         <action
-            android:id="@+id/action_addressFragment_to_chooseAddressFragment"
-            app:destination="@id/chooseAddressFragment" />
+            android:id="@+id/action_addAddressFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+
 
     </fragment>
     <fragment
-        android:id="@+id/chooseAddressFragment"
-        android:name="com.android.developer.prof.reda.shophub.fragments.home.ChooseAddressFragment"
+        android:id="@+id/addressFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.AddressFragment"
         android:label="ChooseAddressFragment"
-        tools:layout="@layout/fragment_choose_address">
+        tools:layout="@layout/fragment_address">
 
         <action
-            android:id="@+id/action_chooseAddressFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
-        <action
-            android:id="@+id/action_chooseAddressFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+            android:id="@+id/action_addressFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
     </fragment>
 
     <fragment
@@ -97,8 +111,29 @@
             android:name="totalPrice"
             app:argType="float" />
         <action
-            android:id="@+id/action_billingFragment_to_chooseAddressFragment"
-            app:destination="@id/chooseAddressFragment" />
+            android:id="@+id/action_billingFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+
 
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.PersonalInfoFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_personal_info" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/favoriteProductsFragment"
+        android:name="com.android.developer.prof.reda.shophub.fragments.home.FavoriteProductsFragment"
+        android:label="fragment_favorite_products"
+        tools:layout="@layout/fragment_favorite_products" />
 </navigation>

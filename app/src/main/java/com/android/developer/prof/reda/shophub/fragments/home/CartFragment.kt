@@ -102,15 +102,15 @@ class CartFragment : Fragment() {
                         binding.progressBarCart.visibility = View.VISIBLE
                     }
                     is Resource.Success ->{
-                        if (it.data == null){
+                        if (it.data?.isEmpty() == true){
                             showEmptyCart()
                         }else{
                             hideEmptyCart()
-                            val count = it.data.size ?: 0
+                            val count = it.data?.size ?: 0
                             binding.itemNumberInCart.text = "(${count})"
                             binding.progressBarCart.visibility = View.INVISIBLE
                             adapter.submitList(it.data)
-                            products = it.data
+                            products = it.data!!
                         }
 
                     }
@@ -142,7 +142,7 @@ class CartFragment : Fragment() {
                     ADD_ADDRESS_FRAGMENT-> {
                         binding.checkoutButton.setOnClickListener {
                             findNavController().navigate(
-                                CartFragmentDirections.actionCartFragmentToAddressFragment(false)
+                                CartFragmentDirections.actionCartFragmentToAddAddressFragment(false)
                             )
                         }
                     }

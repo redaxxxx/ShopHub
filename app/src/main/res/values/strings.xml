@@ -19,8 +19,10 @@
     <string name="Orders">Orders</string>
     <string name="arrow_forward">Arrow Forward</string>
     <string name="address">Address\n</string>
-    <string name="settings">Account Settings</string>
+    <string name="profile">Profile</string>
     <string name="payment">Payment</string>
     <string name="favorite">My Favorite</string>
+    <string name="personalInfo">Personl Information</string>
+    <string name="tv_privacyPolicy">Privacy Policy</string>
 
 </resources>

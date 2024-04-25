@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.home.HomeFragment">
+        tools:context=".fragments.home.HomeFragment"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/searchBar"

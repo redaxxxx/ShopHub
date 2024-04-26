@@ -1,4 +1,4 @@
-package com.android.developer.prof.reda.shophub.fragments.home
+package com.android.developer.prof.reda.shophub.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

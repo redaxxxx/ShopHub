@@ -69,7 +69,7 @@ class BillingFragment : Fragment() {
 
         binding.tvEditAddress.setOnClickListener {
 //            sharedViewModel.setOrderInfo(products, totalPrice)
-            findNavController().navigate(BillingFragmentDirections.actionBillingFragmentToChooseAddressFragment())
+            findNavController().navigate(BillingFragmentDirections.actionBillingFragmentToAddressFragment())
         }
 
         lifecycleScope.launch {

@@ -19,10 +19,18 @@
     <string name="Orders">Orders</string>
     <string name="arrow_forward">Arrow Forward</string>
     <string name="address">Address\n</string>
-    <string name="profile">Profile</string>
-    <string name="payment">Payment</string>
+    <string name="profile">My Profile</string>
+    <string name="payment">Payment methods</string>
     <string name="favorite">My Favorite</string>
     <string name="personalInfo">Personl Information</string>
-    <string name="tv_privacyPolicy">Privacy Policy</string>
+    <string name="tv_settings">Settings</string>
+    <string name="editImageBtn">editImageBtn</string>
+    <string name="alreadyHaveNumOrders">Already have number orders\n</string>
+    <string name="you_have_num_favorite_item">You Have num favorite item</string>
+    <string name="VisaPayment">Visa**344</string>
+    <string name="numAddress">3 Addresses</string>
+    <string name="tv_notification_password">Notification,Password</string>
+    <string name="tv_logout">Logout</string>
+    <string name="tv_logoutFromAccount">Logout From Account</string>
 
 </resources>

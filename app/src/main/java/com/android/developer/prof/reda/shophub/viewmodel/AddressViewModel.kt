@@ -44,4 +44,17 @@ class AddressViewModel @Inject constructor(
             }
     }
 
+    fun deleteAddress(address: Address){
+        firestore.collection("user").document(auth.uid!!).collection("address")
+            .whereEqualTo("id", address.id).get()
+            .addOnSuccessListener {
+                if (it.documents.isNotEmpty()){
+                    for (document in it){
+                        firestore.collection("user").document(auth.uid!!).collection("address")
+                            .document(document.id).delete()
+                    }
+                }
+            }
+    }
+
 }

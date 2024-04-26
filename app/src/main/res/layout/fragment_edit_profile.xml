@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".settings.EditProfileFragment">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/editProfileImageView"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:contentDescription="profile_picture"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineEditProfileDown"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEditProfileRight"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/guidelineEditProfileLift"
+            app:layout_constraintTop_toTopOf="@+id/guidelineEditProfileUp"
+            app:layout_constraintVertical_bias="0.219"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/editImageProfileButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_edit_24"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="@id/editProfileImageView"
+            app:layout_constraintTop_toBottomOf="@id/editProfileImageView"
+            app:layout_constraintStart_toStartOf="@id/editProfileImageView"
+            app:layout_constraintBottom_toBottomOf="@id/editProfileImageView"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/profileFirstNameOutline"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/gray"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEditProfileRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineEditProfileLift"
+            app:layout_constraintTop_toBottomOf="@id/editProfileImageView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profileFirstNameET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="First Name"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="@color/g_black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/profileLastNameOutline"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:boxStrokeColor="@color/gray"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEditProfileRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineEditProfileLift"
+            app:layout_constraintTop_toBottomOf="@id/profileFirstNameOutline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profileLastNameET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Family Name"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="@color/g_black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEditProfileRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineEditProfileLift"
+            app:layout_constraintTop_toBottomOf="@id/profileLastNameOutline">
+
+            <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/cancelEditProfileButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mediumButtonHeight"
+                android:text="Cancel"
+                style="@style/blueButtonStyle"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:layout_marginEnd="16dp"
+                app:finalCornerAngle="50dp"
+                app:initialCornerAngle="10dp"
+                app:spinning_bar_padding="8dp"
+                app:spinning_bar_width="4dp" />
+
+            <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/saveEditProfileButton"
+                style="@style/blueButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mediumButtonHeight"
+                android:layout_weight="1"
+                android:text="Save"
+                app:finalCornerAngle="50dp"
+                app:initialCornerAngle="10dp"
+                app:spinning_bar_padding="8dp"
+                app:spinning_bar_width="4dp" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEditProfileLift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05109489" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEditProfileRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94890511" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEditProfileUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.02872777" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEditProfileDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.97127223" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

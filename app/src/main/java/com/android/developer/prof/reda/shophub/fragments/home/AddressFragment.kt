@@ -64,6 +64,10 @@ class AddressFragment : Fragment() {
             findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddAddressFragment(true))
         }
 
+        adapter.onDeleteClick = {
+            viewModel.deleteAddress(it)
+        }
+
         binding.addNewAddressBtn.setOnClickListener {
             findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddAddressFragment(false))
         }

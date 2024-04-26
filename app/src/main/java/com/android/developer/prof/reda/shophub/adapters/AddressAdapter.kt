@@ -15,11 +15,15 @@ class AddressAdapter : ListAdapter<Address, AddressAdapter.AddressViewHolder>(Di
     inner class AddressViewHolder(private val binding: AddressItemBinding): ViewHolder(binding.root){
         fun bind(address: Address){
             binding.tvNameOfChooseAddress.text = "${address.firstName} ${address.familyName}"
-            binding.tvAddressOfChooseAddress.text = address.address
+            binding.tvAddressOfChooseAddress.text = "${address.address} \n ${address.city} \n ${address.state}"
             binding.tvPhoneNumberChooseAddress.text = address.phoneNumber
 
             binding.editAddressBtn.setOnClickListener {
                 onEditClick?.invoke(address)
+            }
+
+            binding.deleteAddressBtn.setOnClickListener {
+                onDeleteClick?.invoke(address)
             }
         }
         fun setStrokeColor(){
@@ -56,4 +60,5 @@ class AddressAdapter : ListAdapter<Address, AddressAdapter.AddressViewHolder>(Di
     }
     var onAddressClick: ((Address) -> Unit) ?= null
     var onEditClick: ((Address) -> Unit) ?= null
+    var onDeleteClick: ((Address) -> Unit) ?= null
 }

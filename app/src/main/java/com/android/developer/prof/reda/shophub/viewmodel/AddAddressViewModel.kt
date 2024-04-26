@@ -92,8 +92,6 @@ class AddAddressViewModel @Inject constructor(
 
         firestore.collection("user").document(auth.uid!!).collection("address")
             .whereEqualTo("id", address.id).get()
-        firestore.collection("user").document(auth.uid!!).collection("address")
-            .whereEqualTo("id", address.id).get()
             .addOnSuccessListener {
                 if (it.documents.isNotEmpty()){
                     for (document in it) {

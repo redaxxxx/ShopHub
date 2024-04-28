@@ -18,6 +18,8 @@ import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.databinding.FragmentAccountBinding
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.viewmodel.AccountViewModel
+import com.android.developer.prof.reda.shophub.viewmodel.AddressViewModel
+import com.android.developer.prof.reda.shophub.viewmodel.OrderViewModel
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -29,7 +31,8 @@ private const val TAG = "AccountFragment"
 class AccountFragment : Fragment() {
     private lateinit var binding: FragmentAccountBinding
     private val viewModel by viewModels<AccountViewModel>()
-    private var imageUri: Uri? = null
+    private val orderViewModel by viewModels<OrderViewModel>()
+    private val addressViewModel by viewModels<AddressViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +81,27 @@ class AccountFragment : Fragment() {
             }
         }
 
+        lifecycleScope.launch {
+            orderViewModel.orders.collectLatest {
+                when(it){
+                    is Resource.Success ->{
+                        binding.tvOrdersNumber.text = "Already have ${it.data?.size} orders"
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            addressViewModel.addresses.collectLatest {
+                when(it){
+                    is Resource.Success ->{
+                        binding.tvNumAddressProfile.text = "${it.data?.size} addresses"
+                    }
+                    else -> Unit
+                }
+            }
+        }
 
         binding.editProfileImageButton.setOnClickListener {
             findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToEditProfileFragment())

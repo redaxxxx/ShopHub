@@ -22,6 +22,31 @@ class OrderViewModel @Inject constructor(
     val order: StateFlow<Resource<Order>>
         get() = _order
 
+    private val _orders = MutableStateFlow<Resource<List<Order>>>(Resource.Unspecified())
+    val orders: StateFlow<Resource<List<Order>>>
+        get() = _orders
+
+    init {
+        fetchOrders()
+    }
+    private fun fetchOrders(){
+        viewModelScope.launch {
+            _orders.emit(Resource.Loading())
+        }
+
+        firestore.collection("user").document(auth.uid!!).collection("orders")
+            .get()
+            .addOnSuccessListener {
+                viewModelScope.launch {
+                    _orders.emit(Resource.Success(it.toObjects(Order::class.java)))
+                }
+            }.addOnFailureListener {
+                viewModelScope.launch {
+                    _order.emit(Resource.Error(it.message.toString()))
+                }
+            }
+    }
+
     fun placedOrder(order: Order){
         viewModelScope.launch {
             _order.emit(Resource.Loading())

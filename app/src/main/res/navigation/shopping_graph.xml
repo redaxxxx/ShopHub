@@ -114,7 +114,6 @@
             android:id="@+id/action_billingFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
 
-
     </fragment>
 
     <fragment

@@ -124,4 +124,8 @@ class AccountViewModel @Inject constructor(
             }
         }
     }
+
+    fun logoutFromAccount(){
+
+    }
 }

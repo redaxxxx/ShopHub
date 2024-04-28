@@ -136,7 +136,6 @@ class CartFragment : Fragment() {
                                     totalPrice
                                 )
                             )
-
                         }
                     }
                     ADD_ADDRESS_FRAGMENT-> {

@@ -32,5 +32,6 @@
     <string name="tv_notification_password">Notification,Password</string>
     <string name="tv_logout">Logout</string>
     <string name="tv_logoutFromAccount">Logout From Account</string>
+    <string name="order_at_shopHub">Order at ShopHub :</string>
 
 </resources>

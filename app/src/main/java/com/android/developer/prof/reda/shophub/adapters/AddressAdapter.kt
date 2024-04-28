@@ -15,7 +15,7 @@ class AddressAdapter : ListAdapter<Address, AddressAdapter.AddressViewHolder>(Di
     inner class AddressViewHolder(private val binding: AddressItemBinding): ViewHolder(binding.root){
         fun bind(address: Address){
             binding.tvNameOfChooseAddress.text = "${address.firstName} ${address.familyName}"
-            binding.tvAddressOfChooseAddress.text = "${address.address} \n ${address.city} \n ${address.state}"
+            binding.tvAddressOfChooseAddress.text = "${address.address}, ${address.city}, ${address.state}, ${address.postalCode}"
             binding.tvPhoneNumberChooseAddress.text = address.phoneNumber
 
             binding.editAddressBtn.setOnClickListener {

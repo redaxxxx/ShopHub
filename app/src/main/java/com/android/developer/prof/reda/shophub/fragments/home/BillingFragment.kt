@@ -27,6 +27,11 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Calendar
+import java.util.Date
+import java.util.UUID
 
 private const val TAG = "BillingFragment"
 
@@ -66,6 +71,11 @@ class BillingFragment : Fragment() {
 
         binding.productBillingRv.adapter = adapter
         adapter.submitList(products)
+
+        if (selectedAddress == null){
+            binding.tvBuyerName.text = "Please select your Address"
+            binding.tvBuyerAddress.visibility = View.GONE
+        }
 
         binding.tvEditAddress.setOnClickListener {
 //            sharedViewModel.setOrderInfo(products, totalPrice)
@@ -114,11 +124,12 @@ class BillingFragment : Fragment() {
         binding.placeOrder.setOnClickListener {
             showOrderConfirmationDialog()
         }
-
-
     }
 
     private fun showOrderConfirmationDialog(){
+        val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = simpleDate.format(Date())
+
         val alertDialog = AlertDialog.Builder(requireActivity()).apply {
             setTitle("Place Order Items")
             setMessage("Do you want to Order your items?")
@@ -128,10 +139,12 @@ class BillingFragment : Fragment() {
             setPositiveButton("Yes"){dialog,_->
                 orderViewModel.placedOrder(
                     Order(
+                        UUID.randomUUID().toString(),
                         OrderStatus.Ordered.status,
                         totalPrice,
                         products,
-                        selectedAddress!!
+                        selectedAddress!!,
+                        currentDate
                     )
                 )
                 dialog.dismiss()

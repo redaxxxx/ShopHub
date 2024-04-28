@@ -95,24 +95,62 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/tvAddressOfChooseAddress" />
 
-            <ImageView
-                android:id="@+id/editAddressBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_edit_24"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardEditAddressBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPhoneLabel"/>
+                app:layout_constraintStart_toEndOf="@+id/cardDeleteAddressBtn"
+                app:layout_constraintTop_toBottomOf="@id/tvPhoneLabel"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp">
 
-            <ImageView
-                android:id="@+id/deleteAddressBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="6dp"
-                android:src="@drawable/ic_delete"
-                app:layout_constraintEnd_toStartOf="@id/editAddressBtn"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/editAddressBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_edit_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardDeleteAddressBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toTopOf="@id/cardEditAddressBtn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/deleteAddressBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_delete"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"

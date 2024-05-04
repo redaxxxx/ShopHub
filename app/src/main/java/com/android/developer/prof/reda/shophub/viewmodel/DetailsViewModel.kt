@@ -3,6 +3,8 @@ package com.android.developer.prof.reda.shophub.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.developer.prof.reda.shophub.data.CartProduct
+import com.android.developer.prof.reda.shophub.data.FavoriteProduct
+import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.firebase.FirebaseCommon
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +24,10 @@ class DetailsViewModel @Inject constructor(
     private val _addToProduct = MutableStateFlow<Resource<CartProduct>>(Resource.Unspecified())
     val addToProduct: StateFlow<Resource<CartProduct>>
         get() = _addToProduct
+
+    private val _addToFavorite = MutableStateFlow<Resource<FavoriteProduct>>(Resource.Unspecified())
+    val addToFavorite: StateFlow<Resource<FavoriteProduct>>
+        get() = _addToFavorite
 
     fun addUpdateProductInCart(cartProduct: CartProduct){
         viewModelScope.launch {
@@ -78,4 +84,20 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
+
+    fun newFavorite(favoriteProduct: FavoriteProduct){
+        firestore.collection("user").document(auth.uid!!).collection("favorites")
+            .document().set(favoriteProduct)
+            .addOnSuccessListener {
+                viewModelScope.launch {
+                    _addToFavorite.emit(Resource.Success(favoriteProduct))
+                }
+            }.addOnFailureListener {
+                viewModelScope.launch {
+                    _addToFavorite.emit(Resource.Error(it.message.toString()))
+                }
+            }
+
+    }
+
 }

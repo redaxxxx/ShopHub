@@ -26,11 +26,15 @@ class BestProductAdapter(val onclickListener: OnItemCLickListener): ListAdapter<
                     tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
 
                     tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                    val percentage = (priceAfterOffer / product.price) - 1
+                    tvPercentage.text = "${percentage}%"
                 }else {
                     tvNewPrice.visibility = View.INVISIBLE
                 }
 
                 tvPrice.text = "$ ${product.price}"
+
             }
         }
     }

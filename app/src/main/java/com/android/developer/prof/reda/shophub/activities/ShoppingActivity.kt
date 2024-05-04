@@ -48,7 +48,7 @@ class ShoppingActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener{_, destination, _ ->
             if (destination.id == R.id.homeFragment || destination.id == R.id.cartFragment ||
-                destination.id == R.id.accountFragment || destination.id == R.id.searchFragment){
+                destination.id == R.id.accountFragment || destination.id == R.id.favoriteFragment){
                 binding.bottomNavView.visibility = View.VISIBLE
             } else{
                 binding.bottomNavView.visibility = View.GONE

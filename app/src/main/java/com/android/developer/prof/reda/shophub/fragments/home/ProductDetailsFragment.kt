@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +20,10 @@ import androidx.lifecycle.lifecycleScope
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.ViewPagerImagesAdapter
 import com.android.developer.prof.reda.shophub.data.CartProduct
+import com.android.developer.prof.reda.shophub.data.FavoriteProduct
 import com.android.developer.prof.reda.shophub.data.Product
 import com.android.developer.prof.reda.shophub.databinding.FragmentProductDetailsBinding
+import com.android.developer.prof.reda.shophub.helper.getProductPrice
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.util.hideBottomNavigationView
 import com.android.developer.prof.reda.shophub.viewmodel.DetailsViewModel
@@ -64,7 +67,20 @@ class ProductDetailsFragment : Fragment() {
 
         binding.apply {
             tvProductName.text = productArgs.product.name
-            tvProductPrice.text = productArgs.product.price.toString()
+//            tvProductPrice.text = productArgs.product.price.toString()
+            if(productArgs.product.offerPercentage != null){
+                val priceAfterOffer = productArgs.product.offerPercentage.getProductPrice(
+                    productArgs.product.price, productArgs.product.offerPercentage)
+                tvNewProductPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+
+                tvProductPrice.paintFlags = tvProductPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }else {
+                tvNewProductPrice.visibility = View.INVISIBLE
+            }
+
+            tvProductPrice.text = "$ ${productArgs.product.price}"
+
+            tvCategoryName.text = productArgs.product.category
             tvProductDescription.text = productArgs.product.description
         }
 
@@ -72,6 +88,28 @@ class ProductDetailsFragment : Fragment() {
 
         binding.addToCartButton.setOnClickListener {
             viewModel.addUpdateProductInCart(CartProduct(productArgs.product, 1, selectedColor, selectedSize))
+        }
+        binding.imgFavorite.setOnClickListener {
+            viewModel.newFavorite(FavoriteProduct(
+                productArgs.product, true
+            ))
+        }
+
+        lifecycleScope.launch {
+            viewModel.addToFavorite.collectLatest {
+                when(it){
+                    is Resource.Loading ->{
+                        Log.d(TAG, "Loading!!!")
+                    }
+                    is Resource.Success ->{
+                        binding.imgFavorite.setImageResource(R.drawable.baseline_favorite_24)
+                    }
+                    is Resource.Error ->{
+                        Log.d(TAG, "Error add product to favorite ${it.message.toString()}")
+                    }
+                    else -> Unit
+                }
+            }
         }
 
         lifecycleScope.launch {

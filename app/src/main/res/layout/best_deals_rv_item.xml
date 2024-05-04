@@ -50,18 +50,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$1600"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:fontFamily="@font/sf_pro_display"
                 app:layout_constraintTop_toBottomOf="@id/tv_deal_product_name"
                 app:layout_constraintStart_toStartOf="@id/tv_deal_product_name"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:id="@+id/tv_new_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$2000"
+                android:textSize="11sp"
                 android:textColor="@color/g_hint"
                 app:layout_constraintStart_toEndOf="@id/tv_old_price"
                 app:layout_constraintTop_toTopOf="@id/tv_old_price"

@@ -89,19 +89,21 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/favorite_background"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:src="@drawable/ic_favorite" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="-49%"
+                    android:gravity="center"
+                    android:textSize="11sp"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

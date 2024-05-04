@@ -26,12 +26,14 @@
             android:layout_marginTop="15dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/searchLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/search_box_background">
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_thin"

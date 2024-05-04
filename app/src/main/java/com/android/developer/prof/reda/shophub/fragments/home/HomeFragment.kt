@@ -1,11 +1,15 @@
 package com.android.developer.prof.reda.shophub.fragments.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.HomeViewPagerAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentHomeBinding
@@ -17,8 +21,13 @@ import com.android.developer.prof.reda.shophub.fragments.category.FurnitureFragm
 import com.android.developer.prof.reda.shophub.fragments.category.MainCategoryFragment
 import com.android.developer.prof.reda.shophub.fragments.category.ShoesFragment
 import com.android.developer.prof.reda.shophub.fragments.category.TableFragment
+import com.android.developer.prof.reda.shophub.util.Resource
+import com.android.developer.prof.reda.shophub.viewmodel.SearchViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+private const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -37,6 +46,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.searchLayout.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        }
+
         val categoriesFragments = arrayListOf<Fragment>(
             MainCategoryFragment(),
             ChairFragment(),

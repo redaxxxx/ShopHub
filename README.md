@@ -18,3 +18,21 @@ ShopHub app targets people who are looking to buy high quality furniture product
     <img src="login screen.jpeg" width="400" />
     <img src="register screen.jpeg" width="400" />
 </div>
+<div style="display: flex;">
+    <img src="home.jpeg" width="400" />
+    <img src="home1.jpeg" width="400" />
+    <img src="home2.jpeg" width="400" />
+</div>
+<div style="display: flex;">
+    <img src="cart" width="400" />
+    <img src="billing" width="400" />
+    <img src="orders" width="400" />
+    <img src="ordersDetails" width="400" />
+</div>
+<div style="display: flex;">
+    <img src="address" width="400" />
+    <img src="addAddress" width="400" />
+</div>
+<div style="display: flex;">
+    <img src="profile" width="400" />
+</div>

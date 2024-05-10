@@ -13,5 +13,5 @@ ShopHub app targets people who are looking to buy high quality furniture product
 * data binding : instead of inflating views manually data binding will take care of that.
 * Glide : Catch images and load them in imageView.
 
-#Some results
-![1 login](![login screen.jpeg](login%20screen.jpeg)) [2 register](![register screen.jpeg](register%20screen.jpeg))
+#Screenshoots
+![register screen](https://github.com/redaxxxx/ShopHub/assets/63274971/9e8bfc7b-098f-4f96-afb1-2ae904c43fa4) ![login screen](https://github.com/redaxxxx/ShopHub/assets/63274971/5b527f8e-129c-4bb9-b9c6-3ba483b8b9b6)

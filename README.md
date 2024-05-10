@@ -14,4 +14,4 @@ ShopHub app targets people who are looking to buy high quality furniture product
 * Glide : Catch images and load them in imageView.
 
 #Some results
-![1 login] (![login screen.jpeg](..%2F..%2FDownloads%2Flogin%20screen.jpeg)) [register](![register screen.jpeg](..%2F..%2FDownloads%2Fregister%20screen.jpeg))
+![1 login](![login screen.jpeg](login%20screen.jpeg)) [2 register](![register screen.jpeg](register%20screen.jpeg))

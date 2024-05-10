@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/tv_productOrderImg"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/test_image"
+                app:layout_constraintBottom_toTopOf="@id/guidelineProductOrderDown"
+                app:layout_constraintStart_toStartOf="@+id/guidelineProductOrderLift"
+                app:layout_constraintTop_toTopOf="@+id/guidelineProductOrderUp" />
+
+            <TextView
+                android:id="@+id/tv_productOrderName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_productOrderImg"
+                app:layout_constraintTop_toTopOf="@id/tv_productOrderImg"
+                app:layout_constraintEnd_toStartOf="@id/guidelineProductOrderRight"
+                android:text="product name"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/tv_productOrderPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_productOrderImg"
+                app:layout_constraintBottom_toBottomOf="@id/tv_productOrderImg"
+                app:layout_constraintEnd_toStartOf="@id/guidelineProductOrderRight"
+                android:text="$500"
+                android:textSize="14sp"
+                android:textColor="@color/g_blue"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineProductOrderLift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05109489" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineProductOrderRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.94890511" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineProductOrderUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineProductOrderDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.85" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

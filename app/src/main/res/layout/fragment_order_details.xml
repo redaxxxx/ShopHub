@@ -1,80 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".fragments.home.OrderDetailsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/orderDetailsToolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:elevation="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
 
-        <ImageView
-            android:layout_width="wrap_content"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".settings.OrderFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_orders"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:src="@drawable/ic_arrow_back" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Details"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_order"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            app:dividerColor="@color/gray"
+            app:layout_constraintEnd_toEndOf="@id/guidelineOrdersRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_orders" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBarOrderDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_orders"
+            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
+            app:layout_constraintEnd_toStartOf="@id/guidelineOrdersRight"/>
 
         <TextView
-            style="@style/h3"
+            android:id="@+id/product_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Product"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@id/guidelineOrdersRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
+            app:layout_constraintTop_toBottomOf="@id/divider_order" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orderProducts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/guidelineOrdersRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
+            app:layout_constraintTop_toBottomOf="@+id/product_text" />
+
+        <TextView
+            android:id="@+id/shippingDetails_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Shipping Details"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineOrdersRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineOrdersLift"
+            app:layout_constraintTop_toBottomOf="@id/rv_orderProducts" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/shippingDetailsSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/shippingDetails_text"
+            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
+            app:layout_constraintEnd_toStartOf="@id/guidelineOrdersRight"
+            android:layout_marginTop="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Date Shipping"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_dateShipping"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="April 16,2024"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Order status"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_orderStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Ordered"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Date Shipping"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_shippingPOS"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="POS Reggular"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Address"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="address"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/paymentDetails_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Payment Details"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineOrdersRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineOrdersLift"
+            app:layout_constraintTop_toBottomOf="@id/shippingDetailsSection" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/paymentDetailsSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/paymentDetails_text"
+            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
+            app:layout_constraintEnd_toStartOf="@id/guidelineOrdersRight"
+            android:layout_marginTop="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_items"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Items"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_itemsPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="$500"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Import Chargers"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_importChargersPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="$50"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total price"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_totalPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="$550"
+                        android:textStyle="bold"
+                        android:textColor="@color/g_blue"
+                        android:textSize="14sp"
+                        android:gravity="end" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineOrdersLift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order Details"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05109489" />
 
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider_order"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:dividerColor="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/orderDetailsToolbar" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineOrdersRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94890511" />
 
-    <TextView
-        android:id="@+id/productTextLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Product"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/orderGuideLineRight"
-        app:layout_constraintStart_toStartOf="@+id/orderGuideLineLift"
-        app:layout_constraintTop_toBottomOf="@id/divider_order" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/orderGuideLineRight"
-        app:layout_constraintStart_toStartOf="@+id/orderGuideLineLift"
-        app:layout_constraintTop_toBottomOf="@id/productTextLabel" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/orderGuideLineLift"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05109489" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/orderGuideLineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.94890511" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

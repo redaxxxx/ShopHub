@@ -12,3 +12,6 @@ ShopHub app targets people who are looking to buy high quality furniture product
 * Coroutines : do some code in the background.
 * data binding : instead of inflating views manually data binding will take care of that.
 * Glide : Catch images and load them in imageView.
+
+#Some results
+![1 login] (![login screen.jpeg](..%2F..%2FDownloads%2Flogin%20screen.jpeg)) [register](![register screen.jpeg](..%2F..%2FDownloads%2Fregister%20screen.jpeg))

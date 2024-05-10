@@ -30,21 +30,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order Details"
+                android:text="Order"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_order"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            app:dividerColor="@color/gray"
-            app:layout_constraintEnd_toEndOf="@id/guidelineOrdersRight"
-            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_orders" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBarOrders"
@@ -52,60 +42,23 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_orders"
-            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
-            app:layout_constraintEnd_toStartOf="@id/guidelineOrdersRight"/>
-
-        <TextView
-            android:id="@+id/product_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Product"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@id/guidelineOrdersRight"
-            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
-            app:layout_constraintTop_toBottomOf="@id/divider_order" />
+            app:layout_constraintEnd_toStartOf="@+id/guidelineOrdersRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineOrdersLift"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_orders" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_orders"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@id/guidelineOrdersRight"
-            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
-            app:layout_constraintTop_toBottomOf="@+id/product_text" />
-
-        <TextView
-            android:id="@+id/shippingDetails_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Shipping Details"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            tools:listitem="@layout/order_items"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineOrdersRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineOrdersLift"
-            app:layout_constraintTop_toBottomOf="@id/rv_orders" />
+            app:layout_constraintTop_toBottomOf="@id/progressBarOrders" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/shippingDetails_text"
-            app:layout_constraintStart_toStartOf="@id/guidelineOrdersLift"
-            app:layout_constraintEnd_toStartOf="@id/guidelineOrdersRight"
-            android:layout_marginTop="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="4dp">
-
-
-
-        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineOrdersLift"

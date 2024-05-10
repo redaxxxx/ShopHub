@@ -1,5 +1,8 @@
 package com.android.developer.prof.reda.shophub.fragments.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
+import com.android.developer.prof.reda.shophub.activities.LoginRegisterActivity
 import com.android.developer.prof.reda.shophub.databinding.FragmentAccountBinding
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.android.developer.prof.reda.shophub.viewmodel.AccountViewModel
@@ -56,6 +60,7 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //get user information
         lifecycleScope.launch {
             viewModel.userInfo.collectLatest {
                 when (it) {
@@ -81,6 +86,7 @@ class AccountFragment : Fragment() {
             }
         }
 
+        //get orders number
         lifecycleScope.launch {
             orderViewModel.orders.collectLatest {
                 when(it){
@@ -92,6 +98,7 @@ class AccountFragment : Fragment() {
             }
         }
 
+        //get addresses numbers
         lifecycleScope.launch {
             addressViewModel.addresses.collectLatest {
                 when(it){
@@ -120,13 +127,31 @@ class AccountFragment : Fragment() {
         }
 
         binding.myFavoriteProfileSection.setOnClickListener {
-            findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToFavoriteProductsFragment())
         }
 
         binding.settingsSection.setOnClickListener {
         }
 
-        binding.logoutSection.setOnClickListener {
+        //log out from account
+        binding.logoutButton.setOnClickListener {
+            val dialog = AlertDialog.Builder(requireActivity()).apply {
+                setTitle("Log out of your account?")
+                setNegativeButton("Cancel"){dialog,_->
+                    dialog.dismiss()
+                }
+                setPositiveButton("Log Out"){dialog,_->
+                    viewModel.logoutFromAccount()
+                    val intent = Intent(requireActivity(), LoginRegisterActivity::class.java).also { intent->
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    startActivity(intent)
+
+                    dialog.dismiss()
+                }
+            }
+
+            dialog.create()
+            dialog.show()
 
         }
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.FavoriteAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentFavoriteBinding
@@ -50,6 +51,10 @@ class FavoriteFragment : Fragment() {
 
         adapter.onDelete = {
             viewModel.deleteFavoriteProduct(it)
+        }
+
+        adapter.onDetailsProduct = {
+            findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToProductDetailsFragment(it))
         }
 
         lifecycleScope.launch {

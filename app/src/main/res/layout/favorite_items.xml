@@ -126,11 +126,11 @@
                     android:layout_marginStart="8dp" />
 
                 <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
-                    android:id="@+id/addToCartButton"
+                    android:id="@+id/detailsButton"
                     style="@style/blueButtonStyle"
                     android:layout_width="175dp"
                     android:layout_height="35dp"
-                    android:text="Add to Card"
+                    android:text="Details"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"
                     app:finalCornerAngle="50dp"

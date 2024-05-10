@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.developer.prof.reda.shophub.ShopHubApplication
+import com.android.developer.prof.reda.shophub.data.CartProduct
 import com.android.developer.prof.reda.shophub.data.User
 import com.android.developer.prof.reda.shophub.util.Resource
 import com.google.firebase.Firebase
@@ -19,7 +20,9 @@ import com.google.firebase.firestore.toObject
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -43,6 +46,7 @@ class AccountViewModel @Inject constructor(
     private val _updateUserInfo = MutableStateFlow<Resource<User>>(Resource.Unspecified())
     val updateUserInfo: StateFlow<Resource<User>>
         get() = _updateUserInfo
+
     init {
         fetchUserInfo()
     }
@@ -126,6 +130,6 @@ class AccountViewModel @Inject constructor(
     }
 
     fun logoutFromAccount(){
-
+        auth.signOut()
     }
 }

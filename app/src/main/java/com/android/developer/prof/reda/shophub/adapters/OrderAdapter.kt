@@ -7,16 +7,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.android.developer.prof.reda.shophub.data.order.Order
 import com.android.developer.prof.reda.shophub.databinding.OrderItemsBinding
+import java.text.SimpleDateFormat
 
 class OrderAdapter : ListAdapter<Order, OrderAdapter.OrderViewHolder>(DiffCallback) {
 
     inner class OrderViewHolder(private val binding: OrderItemsBinding): ViewHolder(binding.root){
         fun bind(order: Order){
-            binding.tvOrderID.text = order.id
+            binding.tvOrderID.text = order.id.substring(0, 8)
+
             binding.tvOrderDate.text = order.date
             binding.tvOrderStatus.text = order.orderStatus
             binding.tvOrderItems.text = "${order.products.size} items purchased"
             binding.tvOrderPrice.text = order.totalPrice.toString()
+
+            itemView.setOnClickListener{
+                onOrderClick?.invoke(order)
+            }
         }
     }
 
@@ -43,4 +49,6 @@ class OrderAdapter : ListAdapter<Order, OrderAdapter.OrderViewHolder>(DiffCallba
         val order = getItem(position)
         holder.bind(order)
     }
+
+    var onOrderClick: ((Order) -> Unit) ?= null
 }

@@ -38,6 +38,9 @@ class FavoriteAdapter: ListAdapter<FavoriteProduct, FavoriteAdapter.FavoriteView
                 onDelete?.invoke(favoriteProduct)
             }
 
+            binding.detailsButton.setOnClickListener {
+                onDetailsProduct?.invoke(favoriteProduct.product)
+            }
 
         }
     }
@@ -69,4 +72,5 @@ class FavoriteAdapter: ListAdapter<FavoriteProduct, FavoriteAdapter.FavoriteView
     }
 
     var onDelete: ((FavoriteProduct)-> Unit) ?= null
+    var onDetailsProduct: ((Product)-> Unit) ?= null
 }

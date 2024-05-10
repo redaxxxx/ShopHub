@@ -45,9 +45,9 @@ class FavoriteViewModel @Inject constructor(
             .whereEqualTo("id", favoriteProduct.product.id).get()
             .addOnSuccessListener {
                 if (it.documents.isNotEmpty()){
-                    it.documents.forEach {
+                    it.documents.forEach {document->
                         firestore.collection("user").document(auth.uid!!).collection("favorites")
-                            .document(it.id).delete()
+                            .document(document.id).delete()
                     }
                 }
             }

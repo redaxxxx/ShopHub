@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.developer.prof.reda.shophub.R
 import com.android.developer.prof.reda.shophub.adapters.OrderAdapter
 import com.android.developer.prof.reda.shophub.databinding.FragmentOrderBinding
@@ -49,6 +50,10 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvOrders.adapter = adapter
+
+        adapter.onOrderClick = {
+            findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(it))
+        }
 
         lifecycleScope.launch {
             viewModel.orders.collectLatest {

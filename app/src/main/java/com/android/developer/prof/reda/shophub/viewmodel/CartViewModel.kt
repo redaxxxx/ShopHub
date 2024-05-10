@@ -43,6 +43,8 @@ class CartViewModel @Inject constructor(
     private val _navigate = MutableStateFlow(0)
     val navigate: StateFlow<Int>
         get() = _navigate
+
+    //fun delete item from cart
     fun deleteItemFromCart(cartProduct: CartProduct){
         val index = cartProducts.value.data?.indexOf(cartProduct)
         if (index != null && index != -1){
@@ -52,6 +54,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    //calculate total price of products
     val productsPrice = cartProducts.map {
         when(it){
             is Resource.Success-> {
@@ -67,9 +70,11 @@ class CartViewModel @Inject constructor(
                     * cartProduct.quantity).toDouble()
         }.toFloat()
     }
+
     init {
         fetchCartProducts()
 
+        //check if user not has the address, navigate user to add the address
         firestore.collection("user").document(firebaseAuth.uid!!).collection("address").get()
             .addOnSuccessListener {
                 if (it.isEmpty){
@@ -86,6 +91,8 @@ class CartViewModel @Inject constructor(
                 Log.d(TAG, it.message.toString())
             }
     }
+
+    //fetch cart product from firestore database
     private fun fetchCartProducts(){
         viewModelScope.launch {
             _cartProducts.emit(Resource.Loading())
@@ -107,6 +114,8 @@ class CartViewModel @Inject constructor(
                 }
             }
     }
+
+    //the function change quantity of product in firestore database if user change it
     fun quantityChanging(
         cartProduct: CartProduct,
         quantityChanging: FirebaseCommon.QuantityChanging
@@ -131,6 +140,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    //increase quantity
     private fun increaseQuantity(documentId: String) {
         firebaseCommon.increaseQuantityProduct(documentId){result, exception->
             if (exception != null){
@@ -141,6 +151,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    // decrease quantity
     private fun decreaseQuantity(documentId: String) {
         firebaseCommon.decreaseQuantityProduct(documentId){result, exception->
             if (exception != null){

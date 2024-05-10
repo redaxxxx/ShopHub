@@ -14,8 +14,7 @@ ShopHub app targets people who are looking to buy high quality furniture product
 * Glide : Catch images and load them in imageView.
 
 # ScreenShoots
-![register screen](https://github.com/redaxxxx/ShopHub/assets/63274971/9e8bfc7b-098f-4f96-afb1-2ae904c43fa4)
-![login screen](https://github.com/redaxxxx/ShopHub/assets/63274971/5b527f8e-129c-4bb9-b9c6-3ba483b8b9b6)
+![register screen](https://github.com/redaxxxx/ShopHub/assets/63274971/9e8bfc7b-098f-4f96-afb1-2ae904c43fa4) | ![login screen](https://github.com/redaxxxx/ShopHub/assets/63274971/5b527f8e-129c-4bb9-b9c6-3ba483b8b9b6)
 ![WhatsApp Image 2024-05-10 at 8 43 49 PM (3)](https://github.com/redaxxxx/ShopHub/assets/63274971/5e17ceab-401a-47bf-ae64-24ed498f72a2)
 ![WhatsApp Image 2024-05-10 at 8 43 49 PM (2)](https://github.com/redaxxxx/ShopHub/assets/63274971/e04945e3-d024-4e46-9b6b-60bf56b9d4cf)
 ![WhatsApp Image 2024-05-10 at 8 43 49 PM (1)](https://github.com/redaxxxx/ShopHub/assets/63274971/c046884e-ae13-4054-8ce8-41edf1b96358)

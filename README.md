@@ -15,19 +15,19 @@ ShopHub app targets people who are looking to buy high quality furniture product
 
 # ScreenShoots
 <div style="display: flex;">
-    <img src="login screen.jpeg" width="200" height="300"/>
-    <img src="register screen.jpeg" width="200" height="300" />
+    <img src="login screen.jpeg" width="250" height="400"/>
+    <img src="register screen.jpeg" width="250" height="400" />
 </div>
 <div style="display: flex;">
-    <img src="home.jpeg" width="200" height="300" />
-    <img src="home1.jpeg" width="200" height="300" />
-    <img src="home2.jpeg" width="200" height="300" />
-    <img src="cart.jpeg" width="200" height="300" />
-    <img src="billing.jpeg" width="200" height="300"/>
-    <img src="orders.jpeg" width="200" height="300" />
-    <img src="ordersDetails.jpeg" width="200" height="300" />
+    <img src="home.jpeg" width="250" height="400" />
+    <img src="home1.jpeg" width="250" height="400" />
+    <img src="home2.jpeg" width="250" height="400" />
+    <img src="cart.jpeg" width="250" height="400" />
+    <img src="billing.jpeg" width="250" height="400"/>
+    <img src="orders.jpeg" width="250" height="400" />
+    <img src="ordersDetails.jpeg" width="250" height="400" />
 </div>
 <div style="display: flex;">
-    <img src="addAddress.jpeg" width="200" height="300" />
-    <img src="profile.jpeg" width="200" height="300" />
+    <img src="addAddress.jpeg" width="250" height="400" />
+    <img src="profile.jpeg" width="250" height="400" />
 </div>
